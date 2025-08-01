@@ -1,28 +1,28 @@
-<!DOCTYPE html> // このファイルがHTML5形式であることを宣言します。
-<html lang="ja"> // ドキュメントの言語を日本語に設定します
+<!DOCTYPE html> 
+<html lang="ja"> 
 <head>
-    <meta charset="UTF-8"> // 文字エンコーディングをUTF-8に設定し、文字化けを防ぎます
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> // レスポンシブデザインのためにビューポートを設定します
-    <title>STS Library</title> // ブラウザのタブに表示されるページのタイトルです
-    <link rel="stylesheet" href="style.css"> // style.css ファイルを読み込み、ページのスタイルを適用します
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>STS Library</title> 
+    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
-    <div class="container"> // ページコンテンツを中央に配置するためのコンテナです
-        <h1>STS Library</h1> // サイトのメインタイトルです
-        <p class="tagline">あなたの音を探してください</p> // サイトのキャッチフレーズです
+    <div class="container"> 
+        <h1>STS Library</h1> 
+        <p class="tagline">あなたの音を探してください</p> 
 
-        <div class="search-area"> // 検索入力フォームとボタンを囲むエリアです
-            <input type="text" id="fileNameInput" placeholder="ファイル名を入力してください" required maxlength="50" pattern="[a-zA-Z0-9_\-]+" title="英数字、ハイフン、アンダースコアのみ使用できます"> // ファイル名入力用のテキストボックス
-            <button id="searchButton">検索</button> // 検索を実行するボタン
+        <div class="search-area"> 
+            <input type="text" id="fileNameInput" placeholder="ファイル名を入力してください" required maxlength="50" pattern="[a-zA-Z0-9_\-]+" title="英数字、ハイフン、アンダースコアのみ使用できます"> 
+            <button id="searchButton">検索</button> 
         </div>
 
-        <div id="results" class="results-area"> // 検索結果を表示するエリアです
+        <div id="results" class="results-area"> 
             </div>
 
-        <div id="message" class="message-area"> // エラーメッセージなどを表示するエリアです
+        <div id="message" class="message-area"> 
             </div>
     </div>
 
-    <script src="script.js"></script> // script.js ファイルを読み込み、JavaScriptの機能を追加します
+    <script src="script.js"></script> 
 </body>
 </html>
