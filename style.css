@@ -1,0 +1,152 @@
+body {
+    font-family: Arial, sans-serif; /* 全体のフォントを指定します */
+    background-color: #f4f4f4; /* 背景色を設定します */
+    display: flex; /* Flexboxを使って要素を中央に配置します */
+    justify-content: center; /* 水平方向の中央揃え */
+    align-items: flex-start; /* 垂直方向の上端揃え（必要に応じて中央に調整） */
+    min-height: 100vh; /* ページの最小高さをビューポートの高さに合わせます */
+    margin: 0; /* デフォルトのマージンをリセットします */
+    padding-top: 50px; /* 上部に余白を追加します */
+    box-sizing: border-box; /* パディングとボーダーを要素の幅と高さに含めます */
+}
+
+.container {
+    background-color: #ffffff; /* コンテナの背景色 */
+    padding: 30px; /* 内側の余白 */
+    border-radius: 8px; /* 角の丸み */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 影の追加 */
+    text-align: center; /* コンテナ内のテキストを中央揃え */
+    width: 90%; /* コンテナの幅 */
+    max-width: 700px; /* コンテナの最大幅 */
+}
+
+h1 {
+    color: #333; /* タイトルの色 */
+    margin-bottom: 10px; /* 下側の余白 */
+}
+
+.tagline {
+    color: #666; /* キャッチフレーズの色 */
+    margin-bottom: 30px; /* 下側の余白 */
+    font-size: 1.1em; /* フォントサイズ */
+}
+
+.search-area {
+    display: flex; /* Flexboxを使って入力ボックスとボタンを横並びにします */
+    justify-content: center; /* 水平方向の中央揃え */
+    margin-bottom: 30px; /* 下側の余白 */
+    flex-wrap: wrap; /* 小さい画面で折り返すようにします */
+}
+
+#fileNameInput {
+    padding: 12px 15px; /* 内側の余白 */
+    border: 1px solid #ddd; /* ボーダー */
+    border-radius: 5px; /* 角の丸み */
+    font-size: 1em; /* フォントサイズ */
+    width: calc(70% - 10px); /* 幅を計算して調整 */
+    max-width: 350px; /* 最大幅 */
+    margin-right: 10px; /* 右側の余白 */
+    flex-grow: 1; /* 余白があれば伸びるようにします */
+    margin-bottom: 10px; /* 小さい画面でボタンと重ならないように下余白 */
+}
+
+#searchButton {
+    padding: 12px 25px; /* 内側の余白 */
+    background-color: #007bff; /* ボタンの背景色 */
+    color: white; /* ボタンの文字色 */
+    border: none; /* ボーダーなし */
+    border-radius: 5px; /* 角の丸み */
+    font-size: 1em; /* フォントサイズ */
+    cursor: pointer; /* マウスカーソルをポインターにします */
+    transition: background-color 0.3s ease; /* ホバー時のアニメーション */
+}
+
+#searchButton:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
+}
+
+.results-area, .message-area {
+    margin-top: 20px; /* 上側の余白 */
+    padding: 20px; /* 内側の余白 */
+    background-color: #e9ecef; /* 背景色 */
+    border-radius: 8px; /* 角の丸み */
+    text-align: left; /* テキストを左揃え */
+}
+
+.result-item {
+    background-color: #fff; /* 結果アイテムの背景色 */
+    border: 1px solid #ddd; /* ボーダー */
+    padding: 15px; /* 内側の余白 */
+    margin-bottom: 15px; /* 下側の余白 */
+    border-radius: 5px; /* 角の丸み */
+    display: flex; /* Flexboxを使って要素を横並びにします */
+    flex-direction: column; /* 垂直方向に並べます */
+    align-items: flex-start; /* 左揃え */
+}
+
+.result-item h3 {
+    margin-top: 0; /* 上側の余白をリセット */
+    margin-bottom: 10px; /* 下側の余白 */
+    color: #007bff; /* ファイル名の色 */
+}
+
+.audio-controls {
+    display: flex; /* Flexboxを使って再生ボタンとダウンロードリンクを横並びにします */
+    align-items: center; /* 垂直方向の中央揃え */
+    margin-top: 10px; /* 上側の余白 */
+}
+
+.audio-controls audio {
+    width: 250px; /* オーディオプレイヤーの幅 */
+    height: 30px; /* オーディオプレイヤーの高さ */
+    margin-right: 20px; /* 右側の余白 */
+}
+
+.download-link {
+    color: #28a745; /* ダウンロードリンクの色 */
+    text-decoration: none; /* 下線なし */
+    font-weight: bold; /* 太字 */
+}
+
+.download-link:hover {
+    text-decoration: underline; /* ホバー時に下線を表示 */
+}
+
+.message-area {
+    color: #dc3545; /* エラーメッセージの色 */
+    font-weight: bold; /* 太字 */
+    padding: 15px; /* 内側の余白 */
+    background-color: #f8d7da; /* 背景色 */
+    border: 1px solid #f5c6cb; /* ボーダー */
+    border-radius: 5px; /* 角の丸み */
+    text-align: center; /* 中央揃え */
+}
+
+/* レスポンシブデザインの調整 */
+@media (max-width: 600px) { /* 画面幅が600px以下の場合 */
+    .search-area {
+        flex-direction: column; /* 垂直方向に並べます */
+        align-items: stretch; /* 幅いっぱいに広げます */
+    }
+
+    #fileNameInput {
+        width: 100%; /* 幅を100%に */
+        margin-right: 0; /* 右側のマージンをリセット */
+        margin-bottom: 15px; /* 下側のマージン */
+    }
+
+    #searchButton {
+        width: 100%; /* 幅を100%に */
+    }
+
+    .audio-controls {
+        flex-direction: column; /* 垂直方向に並べます */
+        align-items: flex-start; /* 左揃え */
+    }
+
+    .audio-controls audio {
+        width: 100%; /* 幅を100%に */
+        margin-right: 0; /* 右側のマージンをリセット */
+        margin-bottom: 10px; /* 下側のマージン */
+    }
+}
