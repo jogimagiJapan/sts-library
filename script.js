@@ -6,7 +6,7 @@ const messageDiv = document.getElementById('message');
 
 // ここに、先ほどGoogle Apps ScriptをWebアプリとして公開した際のURLを貼り付けます
 // 例: const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/exec';
-const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxejX-TLlYai93amvGjmYrI12eNntjf_pxoZ6JEuHR-cpc-owCA-sPP5f7Ih5nIIpTr/exec'; // ★★★重要：この部分をGASのURLに置き換える★★★
+const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby7BaGFLR6oyxaCGJxYmjXwkqAVrvBiU64np8tsw1a2wGCeYxqfMHFZrZUkDgQU7MwF/exec'; // ★★★重要：この部分をGASのURLに置き換える★★★
 
 // 検索ボタンクリック時の処理
 searchButton.addEventListener('click', performSearch); 
