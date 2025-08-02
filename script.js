@@ -12,7 +12,7 @@ function doSearch() {
     return;
   }
 
-  const url = 'https://script.google.com/macros/s/AKfycbwtca0DipKwMXA_8NiOFGaG3KYd4WdlCL-r-YGJbP_7lyP8BCsi5s9I-RJfaRAZFEzi/exec?name=' + encodeURIComponent(fname);
+  const url = 'https://script.google.com/macros/s/AKfycbx-ybiWfpqZwf2HSO4l3dTUPISdnKr0NgYM2z_LWzhF3hwiiGuXroFOp5F8syXYLp0nUQ/exec?name=' + encodeURIComponent(fname);
 
   fetch(url)
     .then(res => res.json())
