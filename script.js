@@ -5,7 +5,7 @@ const resultsDiv = document.getElementById('results');
 const messageDiv = document.getElementById('message');
 
 // ここに、最新のGoogle Apps ScriptのWebアプリURLを貼り付けます
-const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbypLBA4-B7oSAMM5_vCAqmmFl2Lsu7aZaInLM0odGRTtKxggolYARvzghLkP563BbPFQg/exec'; // ★★★重要：この部分をGASの新しいURLに置き換える★★★
+const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzaEOo-NClMLzf0cBwdF_bTvrOuLF4DJUqPtcrGtfPkWg1HkPK6jHphVwCcwG-qO3o1_g/exec'; // ★★★重要：この部分をGASの新しいURLに置き換える★★★
 
 // 検索ボタンクリック時の処理
 searchButton.addEventListener('click', performSearch);
