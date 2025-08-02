@@ -6,7 +6,7 @@ const messageDiv = document.getElementById('message');
 
 // ここに、先ほどGoogle Apps ScriptをWebアプリとして公開した際のURLを貼り付けます
 // 例: const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/exec';
-const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxTD2jMyjeOOugHvNZqR2vrpN0xJNV5CmVfNhrj32np9v5eHgyp53mIfSTQJZL4R4OT/exec'; // ★★★重要：この部分をGASのURLに置き換える★★★
+const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxE0lx2y551uyzrPkDKyghcyZ7cZ-MqST2v4VwonjdfSige3ATk134CQkd_qG1SY8Vc/exec'; // ★★★重要：この部分をGASのURLに置き換える★★★
 
 // 検索ボタンクリック時の処理
 searchButton.addEventListener('click', performSearch); 
@@ -56,7 +56,6 @@ async function performSearch() {
         // GAS Webアプリへのリクエストを送信
         const response = await fetch(GAS_WEB_APP_URL, {
             method: 'POST', 
-            mode: 'cors', 
             headers: {
                 'Content-Type': 'application/json', 
             },
