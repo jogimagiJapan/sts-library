@@ -1,4 +1,4 @@
-z// DOM要素の取得
+// DOM要素の取得
 const fileNameInput = document.getElementById('fileNameInput');
 const searchButton = document.getElementById('searchButton');
 const resultsDiv = document.getElementById('results');
