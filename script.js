@@ -4,9 +4,8 @@ const searchButton = document.getElementById('searchButton');
 const resultsDiv = document.getElementById('results');
 const messageDiv = document.getElementById('message');
 
-// ここに、Google Apps ScriptをWebアプリとして公開した際のURLを貼り付けます
-// 例: const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/exec';
-const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzIesrr-5axkcer0k5_kyUE_sHQkO_V_FpmO5QzedEBvzFpiI_R1r0kukKjQgwW8bm_/exec'; // ★★★重要：この部分をGASのURLに置き換える★★★
+// ここに、最新のGoogle Apps ScriptのWebアプリURLを貼り付けます
+const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbypLBA4-B7oSAMM5_vCAqmmFl2Lsu7aZaInLM0odGRTtKxggolYARvzghLkP563BbPFQg/exec'; // ★★★重要：この部分をGASの新しいURLに置き換える★★★
 
 // 検索ボタンクリック時の処理
 searchButton.addEventListener('click', performSearch);
@@ -68,8 +67,8 @@ async function performSearch() {
         const data = await response.json(); // レスポンスをJSONとして解析
 
         if (data.found) {
-            displayResults(data.fileName, data.webViewLink, data.downloadLink);
-            displayMessage('', 'clear'); // 成功時はメッセージをクリア
+            displayMessage(`ファイル「${data.fileName}」が見つかりました！`, 'info');
+            // displayResults(data.fileName, data.webViewLink, data.downloadLink); // コメントアウト
         } else {
             displayMessage(data.message, 'error'); // ファイルが見つからないなどのメッセージを表示
         }
@@ -80,49 +79,44 @@ async function performSearch() {
     }
 }
 
-// 検索結果を表示する関数
+// 検索結果を表示する関数 - ★一時的にコメントアウトするか、空にする★
+// 今回はdisplayMessageで結果を出すので、この関数は使われません
+/*
 function displayResults(fileName, webViewLink, downloadLink) {
-    resultsDiv.innerHTML = ''; // 以前の結果をクリア
-
+    resultsDiv.innerHTML = ''; 
     const resultItem = document.createElement('div');
     resultItem.classList.add('result-item');
-
     const fileNameElement = document.createElement('h3');
     fileNameElement.textContent = fileName;
-
     const audioControls = document.createElement('div');
     audioControls.classList.add('audio-controls');
-
     const audioPlayer = document.createElement('audio');
-    audioPlayer.controls = true; // 再生コントロールを表示
-    audioPlayer.src = webViewLink; // ウェブ表示URLを音声ソースに設定
-    audioPlayer.type = 'audio/wav'; // 音声のMIMEタイプを指定
-
+    audioPlayer.controls = true;
+    audioPlayer.src = webViewLink;
+    audioPlayer.type = 'audio/wav';
     const downloadLinkElement = document.createElement('a');
-    downloadLinkElement.href = downloadLink; // ダウンロードURLを設定
+    downloadLinkElement.href = downloadLink;
     downloadLinkElement.textContent = 'ダウンロード';
     downloadLinkElement.classList.add('download-link');
-    downloadLinkElement.setAttribute('download', fileName); // ダウンロード時のファイル名を指定
-
+    downloadLinkElement.setAttribute('download', fileName);
     audioControls.appendChild(audioPlayer);
     audioControls.appendChild(downloadLinkElement);
-
     resultItem.appendChild(fileNameElement);
     resultItem.appendChild(audioControls);
-
     resultsDiv.appendChild(resultItem);
 }
+*/
 
-// メッセージを表示する関数
+// メッセージを表示する関数 (変更なし)
 function displayMessage(message, type) {
-    messageDiv.innerHTML = ''; // 以前のメッセージをクリア
+    messageDiv.innerHTML = '';
     if (message) {
         messageDiv.textContent = message;
-        messageDiv.className = 'message-area'; // 基本クラス
+        messageDiv.className = 'message-area';
         if (type === 'error') {
-            messageDiv.classList.add('error'); // エラー用のスタイル
+            messageDiv.classList.add('error');
         } else if (type === 'info') {
-            messageDiv.classList.add('info'); // 情報表示用のスタイル
+            messageDiv.classList.add('info');
         }
     }
 }
