@@ -11,7 +11,7 @@ function doSearch() {
     alert('ファイル名は英数字、ハイフン、アンダースコアのみ、50文字以内です');
     return;
   }
-  const url = 'https://script.google.com/macros/s/AKfycbwr0QhtsvSnasWULkwM_8PIyv5ifJpQEuAbssUPIEyDLatVOwnh97cL0uajBfwE15m5bQ/exec' + encodeURIComponent(fname);
+  const url = 'https://script.google.com/macros/s/AKfycbwr0QhtsvSnasWULkwM_8PIyv5ifJpQEuAbssUPIEyDLatVOwnh97cL0uajBfwE15m5bQ/exec?name=' + encodeURIComponent(fname);
   fetch(url)
     .then(res => res.json())
     .then(json => {
