@@ -1,8 +1,48 @@
-body {font-family: sans-serif; margin: 20px; text-align: center;}
-input, button {padding: 10px; margin: 5px; font-size: 1rem;}
-#result {margin-top: 20px;}
-audio {margin-top: 10px; width: 100%;}
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  text-align: center;
+}
+
+input {
+  padding: 10px;
+  margin: 5px;
+  font-size: 1rem;
+  width: 60%; /* ← 横幅1.5倍程度に調整 */
+  max-width: 400px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* 追加：ダウンロードボタンのスタイル */
+.download-button {
+  background-color: #4CAF50;  /* グリーン */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.download-button:hover {
+  background-color: #45a049;
+}
+
+#result {
+  margin-top: 20px;
+}
+
 @media (max-width: 600px) {
-  input {width: 80%;}
-  button {width: 80%;}
+  input, button {
+    width: 80%;
+  }
 }

@@ -6,12 +6,14 @@ document.getElementById('fname').addEventListener('keydown', e => {
 
 function doSearch() {
   const fname = document.getElementById('fname').value.trim();
-  const ok = /^[A-Za-z0-9_-]+$/.test(fname); // // 英数字・_- チェック
+  const ok = /^[A-Za-z0-9_-]+$/.test(fname); // // 英数字・-_チェック
   if (!ok || !fname) {
     alert('ファイル名は英数字、ハイフン、アンダースコアのみ、50文字以内です');
     return;
   }
+
   const url = 'https://script.google.com/macros/s/AKfycbzur1Zu2Dz0dpmDu0N_McEBVeSEJED2sYq2R9DIE0qGHGoB5HtuoX3TKrOpRTotmVBCCA/exec?name=' + encodeURIComponent(fname);
+
   fetch(url)
     .then(res => res.json())
     .then(json => {
@@ -20,8 +22,7 @@ function doSearch() {
       if (json.found) {
         resDiv.innerHTML = `
           <p>${json.name}</p>
-          <audio controls src="${json.playUrl}"></audio>
-          <p><a href="${json.downloadUrl}" download>ダウンロード</a></p>
+          <a href="${json.downloadUrl}" class="download-button" download>音声をダウンロード</a>
         `;
       } else {
         resDiv.innerHTML = '<p>ファイルが見つかりません。ファイル名を確認してください。</p>';
