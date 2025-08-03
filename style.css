@@ -50,12 +50,12 @@ audio {
 
 /* ✅ 個別設定：高さ + 遅延（中心から外に向けてタイミングをずらす） */
 .bar-1  { height: 14px; animation-delay: 0.5s; }
-.bar-2  { height: 18px; animation-delay: 0.4s; }
+.bar-2  { height: 30px; animation-delay: 0.4s; }
 .bar-3  { height: 24px; animation-delay: 0.3s; }
-.bar-4  { height: 30px; animation-delay: 0.2s; }
+.bar-4  { height: 20px; animation-delay: 0.2s; }
 .bar-5  { height: 35px; animation-delay: 0.1s; }
-.bar-6  { height: 35px; animation-delay: 0.1s; }
-.bar-7  { height: 30px; animation-delay: 0.2s; }
+.bar-6  { height: 15px; animation-delay: 0.1s; }
+.bar-7  { height: 5px; animation-delay: 0.2s; }
 .bar-8  { height: 24px; animation-delay: 0.3s; }
 .bar-9  { height: 18px; animation-delay: 0.4s; }
 .bar-10 { height: 14px; animation-delay: 0.5s; }
