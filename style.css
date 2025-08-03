@@ -5,16 +5,26 @@ body {
   font-size: 1.1rem;
 }
 
-/* 入力とボタン */
-input, button {
-  padding: 14px;
-  margin: 8px;
-  font-size: 1.1rem;
-  border-radius: 8px;
+/* 入力とボタン全体をラップする */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 入力欄は広く */
+.input-group input {
   width: 100%;
   max-width: 400px;
-  box-sizing: border-box;
 }
+
+/* ボタンは4分の1の幅 */
+.input-group button {
+  width: 25%;
+  min-width: 80px; /* 小さすぎないように */
+}
+
 
 /* 音声結果 */
 #result {
