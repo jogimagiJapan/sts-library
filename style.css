@@ -45,7 +45,9 @@ audio {
   margin: 0 2px;
   background-color: rgba(128, 128, 128, 0.5);
   transform-origin: center;
-  animation: pulse 0.8s infinite ease-in-out;
+  animation-name: pulse;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }
 
 /* ✅ 個別設定：高さ + 遅延（中心から外に向けてタイミングをずらす） */
