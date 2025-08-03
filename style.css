@@ -107,7 +107,7 @@ audio {
   margin: 20px auto; /* ← 上下に20px、左右自動で中央寄せ */
   border-radius: 10px;
   text-decoration: none;
-  display: block; /* ← 中央寄せを効かせるため block に変更 */
+  display: inline-block; /* ← 中央寄せを効かせるため block に変更 */
   font-weight: bold;
   font-size: 1.1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
