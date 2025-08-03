@@ -6,7 +6,7 @@ document.getElementById('fname').addEventListener('keydown', e => {
 
 function doSearch() {
   const fname = document.getElementById('fname').value.trim();
-  const ok = /^[A-Za-z0-9_-]+$/.test(fname); // ファイル名バリデーション
+  const ok = /^[A-Za-z0-9_-]+$/.test(fname); // 英数字・_- チェック
   if (!ok || !fname) {
     alert('ファイル名は英数字、ハイフン、アンダースコアのみ、50文字以内です');
     return;
