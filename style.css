@@ -1,24 +1,25 @@
 body {
   font-family: sans-serif;
-  margin: 20px;
+  margin: 40px; /* 2倍 */
   text-align: center;
+  font-size: 2rem; /* 基準サイズを2倍に */
 }
 
 /* 入力とボタン */
 input, button {
-  padding: 10px;
-  margin: 5px;
-  font-size: 1rem;
+  padding: 20px; /* 2倍 */
+  margin: 10px;   /* 2倍 */
+  font-size: 2rem; /* 2倍 */
 }
 
 /* 音声結果 */
 #result {
-  margin-top: 20px;
+  margin-top: 40px; /* 2倍 */
 }
 
 /* 音声コントロール */
 audio {
-  margin-top: 10px;
+  margin-top: 20px; /* 2倍 */
   width: 100%;
 }
 
@@ -34,15 +35,15 @@ audio {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 10px 0;
-  height: 40px;
+  margin: 20px 0; /* 2倍 */
+  height: 80px; /* 2倍 */
   pointer-events: none;
   z-index: 0;
 }
 
 .volume-bars .bar {
-  width: 4px;
-  margin: 0 2px;
+  width: 8px;         /* 2倍 */
+  margin: 0 4px;      /* 2倍 */
   background-color: rgba(128, 128, 128, 0.5);
   transform-origin: center;
   animation-name: pulse;
@@ -50,37 +51,37 @@ audio {
   animation-timing-function: ease-in-out;
 }
 
-/* ✅ 個別設定：高さ + 遅延（中心から外に向けてタイミングをずらす） */
-.bar-1  { height: 14px; animation-delay: 1.0s; animation-duration: 1.0s; }
-.bar-2  { height: 30px; animation-delay: 0.4s; animation-duration: 1.2s; }
-.bar-3  { height: 16px; animation-delay: 3.3s; animation-duration: 1.5s; }
-.bar-4  { height: 20px; animation-delay: 0.2s; animation-duration: 1.0s; }
-.bar-5  { height: 35px; animation-delay: 0.1s; animation-duration: 1.6s; }
-.bar-6  { height: 15px; animation-delay: 4.1s; animation-duration: 1.2s; }
-.bar-7  { height: 8px; animation-delay: 0.2s; animation-duration: 1.4s; }
-.bar-8  { height: 24px; animation-delay: 0.3s; animation-duration: 1.2s; }
-.bar-9  { height: 18px; animation-delay: 1.4s; animation-duration: 1.0s; }
-.bar-10 { height: 8px; animation-delay: 0.5s; animation-duration: 1.2s; }
+/* ✅ 個別設定：高さ + 遅延 + duration（2倍） */
+.bar-1  { height: 28px; animation-delay: 1.0s; animation-duration: 2.0s; }
+.bar-2  { height: 60px; animation-delay: 0.4s; animation-duration: 2.4s; }
+.bar-3  { height: 32px; animation-delay: 3.3s; animation-duration: 3.0s; }
+.bar-4  { height: 40px; animation-delay: 0.2s; animation-duration: 2.0s; }
+.bar-5  { height: 70px; animation-delay: 0.1s; animation-duration: 3.2s; }
+.bar-6  { height: 30px; animation-delay: 4.1s; animation-duration: 2.4s; }
+.bar-7  { height: 16px; animation-delay: 0.2s; animation-duration: 2.8s; }
+.bar-8  { height: 48px; animation-delay: 0.3s; animation-duration: 2.4s; }
+.bar-9  { height: 36px; animation-delay: 1.4s; animation-duration: 2.0s; }
+.bar-10 { height: 16px; animation-delay: 0.5s; animation-duration: 2.4s; }
 
 @keyframes pulse {
   0%, 100% { transform: scaleY(1); }
   50%      { transform: scaleY(1.8); }
 }
 
-
-/* ✅ ダウンロードボタンのスタイル強化 */
+/* ✅ ダウンロードボタン（2倍サイズ） */
 .download-button {
   background: linear-gradient(135deg, #4CAF50, #2E7D32);
   color: white;
   border: none;
-  padding: 12px 24px;
-  margin-top: 16px;
-  border-radius: 8px;
+  padding: 24px 48px; /* 2倍 */
+  margin-top: 32px;   /* 2倍 */
+  border-radius: 16px; /* 2倍 */
   text-decoration: none;
   display: inline-block;
   font-weight: bold;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* 2倍 */
   transition: all 0.3s ease;
+  font-size: 2rem; /* 2倍 */
 }
 
 .download-button:hover {
