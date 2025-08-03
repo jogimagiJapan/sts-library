@@ -1,44 +1,86 @@
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  text-align: center;
+  background-color: #fff;
+}
+
+/* 入力とボタン */
+input, button {
+  padding: 10px;
+  margin: 5px;
+  font-size: 1rem;
+}
+
+/* 音声結果 */
+#result {
+  margin-top: 20px;
+}
+
+/* 音声コントロール（必要であれば残す） */
+audio {
+  margin-top: 10px;
+  width: 100%;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 600px) {
+  input, button {
+    width: 80%;
+  }
+}
+
 /* === 音量バーアニメーションをページ全体の背景に固定 === */
 .volume-bars {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;           /* 画面全体に広げる */
-  height: 100vh;          /* 全画面の高さ */
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;    /* 上下中央 */
+  align-items: center;
   pointer-events: none;
-  z-index: 0;             /* 背景に固定 */
+  z-index: 0;
 }
 
 .volume-bars .bar {
   width: 8px;
-  height: 60px;
   margin: 0 4px;
-  background-color: rgba(128, 128, 128, 0.5); /* グレースケール50%, 半透明 */
-  animation: pulse 1.2s infinite ease-in-out;
+  background-color: rgba(128, 128, 128, 0.5);
+  animation-duration: 1.2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
   border-radius: 2px;
+  transform-origin: bottom;
 }
 
-/* アニメーション遅延 */
-.volume-bars .bar:nth-child(1) { animation-delay: 0s; }
-.volume-bars .bar:nth-child(2) { animation-delay: 0.6s; }
-.volume-bars .bar:nth-child(3) { animation-delay: 0.2s; }
-.volume-bars .bar:nth-child(4) { animation-delay: 0.1s; }
-.volume-bars .bar:nth-child(5) { animation-delay: 0.4s; }
-.volume-bars .bar:nth-child(6) { animation-delay: 0.1s; }
-.volume-bars .bar:nth-child(7) { animation-delay: 0.2s; }
-.volume-bars .bar:nth-child(8) { animation-delay: 0.1s; }
-.volume-bars .bar:nth-child(9) { animation-delay: 0s; }
-.volume-bars .bar:nth-child(10) { animation-delay: 0.2s; }
+/* 各バーの高さ（初期）と個別アニメーション */
+.volume-bars .bar:nth-child(1)  { height: 16px; animation-name: pulse1; animation-delay: 0s; }
+.volume-bars .bar:nth-child(2)  { height: 20px; animation-name: pulse2; animation-delay: 0.1s; }
+.volume-bars .bar:nth-child(3)  { height: 24px; animation-name: pulse3; animation-delay: 0.2s; }
+.volume-bars .bar:nth-child(4)  { height: 28px; animation-name: pulse4; animation-delay: 0.3s; }
+.volume-bars .bar:nth-child(5)  { height: 32px; animation-name: pulse5; animation-delay: 0.4s; }
+.volume-bars .bar:nth-child(6)  { height: 28px; animation-name: pulse6; animation-delay: 0.3s; }
+.volume-bars .bar:nth-child(7)  { height: 24px; animation-name: pulse7; animation-delay: 0.2s; }
+.volume-bars .bar:nth-child(8)  { height: 20px; animation-name: pulse8; animation-delay: 0.1s; }
+.volume-bars .bar:nth-child(9)  { height: 16px; animation-name: pulse9; animation-delay: 0s; }
+.volume-bars .bar:nth-child(10) { height: 12px; animation-name: pulse10; animation-delay: 0.1s; }
 
-@keyframes pulse {
-  0%, 100% { transform: scaleY(1); }
-  50% { transform: scaleY(1.8); }
-}
+/* 各バーに対する最大スケールの個別設定 */
+@keyframes pulse1  { 0%,100%{transform:scaleY(1);} 50%{transform:scaleY(1.4);} }
+@keyframes pulse2  { 0%,100%{transform:scaleY(1);} 50%{transform:scaleY(1.6);} }
+@keyframes pulse3  { 0%,100%{transform:scaleY(1);} 50%{transform:scaleY(1.8);} }
+@keyframes pulse4  { 0%,100%{transform:scaleY(1);} 50%{transform:scaleY(2.0);} }
+@keyframes pulse5  { 0%,100%{transform:scaleY(1);} 50%{transform:scaleY(2.2);} }
+@keyframes pulse6  { 0%,100%{transform:scaleY(1);} 50%{transform:scaleY(2.0);} }
+@keyframes pulse7  { 0%,100%{transform:scaleY(1);} 50%{transform:scaleY(1.8);} }
+@keyframes pulse8  { 0%,100%{transform:scaleY(1);} 50%{transform:scaleY(1.6);} }
+@keyframes pulse9  { 0%,100%{transform:scaleY(1);} 50%{transform:scaleY(1.4);} }
+@keyframes pulse10 { 0%,100%{transform:scaleY(1);} 50%{transform:scaleY(1.2);} }
 
-/* ヘッダーや他コンテンツは前面へ */
+/* 前景要素の表示を上に */
 header, main {
   position: relative;
   z-index: 1;
