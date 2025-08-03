@@ -13,17 +13,23 @@ body {
   gap: 8px;
 }
 
-/* 入力欄は広く */
 .input-group input {
   width: 100%;
   max-width: 400px;
 }
 
-/* ボタンは4分の1の幅 */
 .input-group button {
   width: 25%;
-  min-width: 80px; /* 小さすぎないように */
+  min-width: 100px;
 }
+
+/* ✅ PC（601px以上）ではボタン幅を少し広めに */
+@media (min-width: 601px) {
+  .input-group button {
+    width: 150px;
+  }
+}
+
 
 
 /* 音声結果 */
