@@ -33,47 +33,54 @@ audio {
 .volume-bars {
   display: flex;
   justify-content: center;
-  align-items: flex-end;
-  gap: 4px;
-  height: 50px;
+  align-items: center;
   margin: 10px 0;
-  z-index: 1;
+  height: 40px;
   pointer-events: none;
+  z-index: 0;
 }
 
 .volume-bars .bar {
   width: 4px;
-  background-color: rgba(128, 128, 128, 0.5);
+  margin: 0 2px;
+  background-color: rgba(128, 128, 128, 0.5); /* グレースケール50%, 透過 */
+  transform-origin: center;
   animation: pulse 1s infinite ease-in-out;
-  transform-origin: bottom center;
 }
 
-/* 各バーの最大長を data-max 属性で制御 */
-.volume-bars .bar[data-max] {
-  height: 10px;
-}
-
-.volume-bars .bar:nth-child(1) { animation-delay: 0s;    }
-.volume-bars .bar:nth-child(2) { animation-delay: 0.3s;  }
-.volume-bars .bar:nth-child(3) { animation-delay: 0.2s;  }
-.volume-bars .bar:nth-child(4) { animation-delay: 0.1s;  }
-.volume-bars .bar:nth-child(5) { animation-delay: 0.4s;  }
-.volume-bars .bar:nth-child(6) { animation-delay: 0.2s;  }
-.volume-bars .bar:nth-child(7) { animation-delay: 0.15s; }
-.volume-bars .bar:nth-child(8) { animation-delay: 0.05s; }
-.volume-bars .bar:nth-child(9) { animation-delay: 0.3s;  }
-.volume-bars .bar:nth-child(10){ animation-delay: 0.1s;  }
+/* ✅ アニメーションタイミングと長さを個別に設定 */
+.bar-1 { height: 10px; animation-delay: 0s; }
+.bar-2 { height: 20px; animation-delay: 0.1s; }
+.bar-3 { height: 30px; animation-delay: 0.2s; }
+.bar-4 { height: 25px; animation-delay: 0.15s; }
+.bar-5 { height: 35px; animation-delay: 0.05s; }
+.bar-6 { height: 30px; animation-delay: 0.2s; }
+.bar-7 { height: 25px; animation-delay: 0.1s; }
+.bar-8 { height: 20px; animation-delay: 0.15s; }
+.bar-9 { height: 15px; animation-delay: 0.1s; }
+.bar-10 { height: 10px; animation-delay: 0.05s; }
 
 @keyframes pulse {
-  0%, 100% {
-    transform: scaleY(1);
-  }
-  50% {
-    transform: scaleY(1.8);
-  }
+  0%, 100% { transform: scaleY(1); }
+  50%      { transform: scaleY(1.8); }
 }
 
-/* JavaScriptで個別の最大高さを適用 */
-.volume-bars .bar {
-  --max-height: 40px;
+/* ✅ ダウンロードボタンのスタイル強化 */
+.download-button {
+  background: linear-gradient(135deg, #4CAF50, #2E7D32);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  margin-top: 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.download-button:hover {
+  background: linear-gradient(135deg, #43A047, #1B5E20);
+  transform: scale(1.05);
 }
