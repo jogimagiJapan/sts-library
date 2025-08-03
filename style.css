@@ -1,54 +1,24 @@
-body {
-  font-family: sans-serif;
-  margin: 20px;
-  text-align: center;
-}
-
-/* 入力とボタン */
-input, button {
-  padding: 10px;
-  margin: 5px;
-  font-size: 1rem;
-}
-
-/* 音声結果 */
-#result {
-  margin-top: 20px;
-}
-
-/* 音声コントロール */
-audio {
-  margin-top: 10px;
-  width: 100%;
-}
-
-/* レスポンシブ対応 */
-@media (max-width: 600px) {
-  input, button {
-    width: 80%;
-  }
-}
-
-/* === 音量バーアニメーション === */
+/* === 音量バーアニメーション（拡大・位置調整） === */
 .volume-bars {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   position: absolute;
-  top: 20px;
+  top: 100px; /* タイトル下に配置。調整可能 */
   left: 50%;
   transform: translateX(-50%);
-  height: 40px;
+  height: 100px;  /* 表示エリアの高さ */
   pointer-events: none;
   z-index: 0;
 }
 
 .volume-bars .bar {
-  width: 4px;
-  height: 20px;
-  margin: 0 2px;
-  background-color: rgba(128, 128, 128, 0.5); /* グレースケール50%, 透過 */
-  animation: pulse 1s infinite ease-in-out;
+  width: 8px;              /* ← 太さアップ */
+  height: 60px;            /* ← 初期の高さを拡大 */
+  margin: 0 4px;           /* 間隔を広めに */
+  background-color: rgba(128, 128, 128, 0.5); /* グレースケール50%, 半透明 */
+  animation: pulse 1.2s infinite ease-in-out;
+  border-radius: 2px;
 }
 
 /* 各バーにランダム性を出すためのdelay */
@@ -63,26 +33,8 @@ audio {
 .volume-bars .bar:nth-child(9) { animation-delay: 0s; }
 .volume-bars .bar:nth-child(10) { animation-delay: 0.2s; }
 
-/* アニメーション */
+/* 拡大に合わせてアニメーションも調整 */
 @keyframes pulse {
   0%, 100% { transform: scaleY(1); }
-  50% { transform: scaleY(2); }
-}
-
-/* 追加：ダウンロードボタンのスタイル */
-.download-button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin-top: 10px;
-  border-radius: 8px;
-  text-decoration: none;
-  display: inline-block;
-  font-weight: bold;
-  transition: background-color 0.3s;
-}
-
-.download-button:hover {
-  background-color: #388e3c;
+  50% { transform: scaleY(1.8); }
 }
