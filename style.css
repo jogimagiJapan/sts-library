@@ -2,7 +2,6 @@ body {
   font-family: sans-serif;
   margin: 20px;
   text-align: center;
-  background-color: #fff;
 }
 
 /* 入力とボタン */
@@ -17,7 +16,7 @@ input, button {
   margin-top: 20px;
 }
 
-/* 音声コントロール（必要であれば残す） */
+/* 音声コントロール */
 audio {
   margin-top: 10px;
   width: 100%;
@@ -34,47 +33,47 @@ audio {
 .volume-bars {
   display: flex;
   justify-content: center;
-  align-items: end;
+  align-items: flex-end;
   gap: 4px;
-  height: 40px;
+  height: 50px;
   margin: 10px 0;
+  z-index: 1;
   pointer-events: none;
 }
 
 .volume-bars .bar {
   width: 4px;
-  background-color: rgba(128, 128, 128, 0.5); /* グレースケール50%, 透過 */
+  background-color: rgba(128, 128, 128, 0.5);
   animation: pulse 1s infinite ease-in-out;
-  transform-origin: center bottom;
+  transform-origin: bottom center;
 }
 
-/* 各バーの最大スケールを個別に調整（scaleYの上限を barX-scale に割り当て） */
-.volume-bars .bar:nth-child(1)  { height: 10px; animation-name: pulse-1;  animation-delay: 0s; }
-.volume-bars .bar:nth-child(2)  { height: 14px; animation-name: pulse-2;  animation-delay: 0.1s; }
-.volume-bars .bar:nth-child(3)  { height: 18px; animation-name: pulse-3;  animation-delay: 0.2s; }
-.volume-bars .bar:nth-child(4)  { height: 24px; animation-name: pulse-4;  animation-delay: 0.3s; }
-.volume-bars .bar:nth-child(5)  { height: 30px; animation-name: pulse-5;  animation-delay: 0.4s; }
-.volume-bars .bar:nth-child(6)  { height: 26px; animation-name: pulse-6;  animation-delay: 0.3s; }
-.volume-bars .bar:nth-child(7)  { height: 20px; animation-name: pulse-7;  animation-delay: 0.2s; }
-.volume-bars .bar:nth-child(8)  { height: 16px; animation-name: pulse-8;  animation-delay: 0.1s; }
-.volume-bars .bar:nth-child(9)  { height: 12px; animation-name: pulse-9;  animation-delay: 0s; }
-.volume-bars .bar:nth-child(10) { height: 8px;  animation-name: pulse-10; animation-delay: 0.1s; }
+/* 各バーの最大長を data-max 属性で制御 */
+.volume-bars .bar[data-max] {
+  height: 10px;
+}
 
-/* 個別アニメーション定義（最大スケールを調整） */
-@keyframes pulse-1  { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.6); } }
-@keyframes pulse-2  { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.8); } }
-@keyframes pulse-3  { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(2.0); } }
-@keyframes pulse-4  { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(2.2); } }
-@keyframes pulse-5  { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(2.4); } }
-@keyframes pulse-6  { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(2.2); } }
-@keyframes pulse-7  { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(2.0); } }
-@keyframes pulse-8  { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.8); } }
-@keyframes pulse-9  { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.6); } }
-@keyframes pulse-10 { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.4); } }
+.volume-bars .bar:nth-child(1) { animation-delay: 0s;    }
+.volume-bars .bar:nth-child(2) { animation-delay: 0.3s;  }
+.volume-bars .bar:nth-child(3) { animation-delay: 0.2s;  }
+.volume-bars .bar:nth-child(4) { animation-delay: 0.1s;  }
+.volume-bars .bar:nth-child(5) { animation-delay: 0.4s;  }
+.volume-bars .bar:nth-child(6) { animation-delay: 0.2s;  }
+.volume-bars .bar:nth-child(7) { animation-delay: 0.15s; }
+.volume-bars .bar:nth-child(8) { animation-delay: 0.05s; }
+.volume-bars .bar:nth-child(9) { animation-delay: 0.3s;  }
+.volume-bars .bar:nth-child(10){ animation-delay: 0.1s;  }
 
+@keyframes pulse {
+  0%, 100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.8);
+  }
+}
 
-/* 前景要素の表示を上に */
-header, main {
-  position: relative;
-  z-index: 1;
+/* JavaScriptで個別の最大高さを適用 */
+.volume-bars .bar {
+  --max-height: 40px;
 }

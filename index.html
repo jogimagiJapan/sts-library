@@ -6,28 +6,28 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
->
+  <header>
+    <h1>STS Library</h1>
 
-  <!-- ✅ タイトルと説明文の間にバーを配置 -->
-  <div class="volume-bars">
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-  </div>
+    <!-- 🔽 アニメーション：タイトルとサブタイトルの間に配置 -->
+    <div class="volume-bars">
+      <div class="bar" data-max="30"></div>
+      <div class="bar" data-max="40"></div>
+      <div class="bar" data-max="35"></div>
+      <div class="bar" data-max="25"></div>
+      <div class="bar" data-max="45"></div>
+      <div class="bar" data-max="25"></div>
+      <div class="bar" data-max="35"></div>
+      <div class="bar" data-max="30"></div>
+      <div class="bar" data-max="40"></div>
+      <div class="bar" data-max="20"></div>
+    </div>
 
-  <p>あなたの音を探してください</p>
-</header>
-
+    <p>あなたの音を探してください</p>
+  </header>
 
   <main>
-    <input type="text" id="fname" placeholder="例:20250714_164431" maxlength="50" required>
+    <input type="text" id="fname" placeholder="ファイル名を入力してください（例:20250714_164431）" maxlength="50" required>
     <button id="btnSearch">検索</button>
     <div id="result"></div>
   </main>
