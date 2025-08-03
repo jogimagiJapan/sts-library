@@ -104,17 +104,15 @@ audio {
   color: white;
   border: none;
   padding: 14px 28px;
-  margin-top: 20px;
+  margin: 20px auto; /* ← 上下に20px、左右自動で中央寄せ */
   border-radius: 10px;
   text-decoration: none;
-  display: inline-block;
+  display: block; /* ← 中央寄せを効かせるため block に変更 */
   font-weight: bold;
   font-size: 1.1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
   transition: all 0.3s ease;
+  max-width: 90%; /* オーバーフロー防止に追加してもOK */
+  text-align: center; /* ボタン内テキストも中央に */
 }
 
-.download-button:hover {
-  background: linear-gradient(135deg, #43A047, #1B5E20);
-  transform: scale(1.05);
-}
