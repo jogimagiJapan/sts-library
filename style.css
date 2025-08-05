@@ -56,9 +56,10 @@ audio {
   }
 
   .download-button {
-    width: 90%;
+    width: calc(100% - 40px);
+    padding: 14px 20px;
+    box-sizing: border-box;
   }
-}
 
 /* === 音量バーアニメーション === */
 .volume-bars {
