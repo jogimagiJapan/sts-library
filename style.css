@@ -116,3 +116,11 @@ audio {
   text-align: center; /* ボタン内テキストも中央に */
 }
 
+footer {
+  font-size: 0.8rem; /* 小さめ */
+  color: #777;       /* 薄めのグレー（任意） */
+  margin-top: 40px;  /* 他の要素との余白（任意） */
+  text-align: center;
+}
+
+
