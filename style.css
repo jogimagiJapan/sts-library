@@ -58,7 +58,6 @@ audio {
   .download-button {
     width: calc(100% - 40px);
     padding: 14px 20px;
-    box-sizing: border-box;
   }
 
 /* === 音量バーアニメーション === */
@@ -115,6 +114,7 @@ audio {
   transition: all 0.3s ease;
   max-width: 90%; /* オーバーフロー防止に追加してもOK */
   text-align: center; /* ボタン内テキストも中央に */
+  box-sizing: border-box;
 }
 
 footer {
