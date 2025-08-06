@@ -118,11 +118,40 @@ audio {
   box-sizing: border-box;
 }
 
+.loader {
+  height: 3px;
+  width: 60px;
+  background: linear-gradient(#000 0 0) right/51% 100% no-repeat;
+  display: flex;
+  animation: l10-0 2s linear infinite;
+  margin: 10px auto;
+}
+.loader:before,
+.loader:after {
+  content: "";
+  width: 15px;
+  background: #000;
+  animation: l10-1 2s linear infinite;
+}
+.loader:after {
+  animation-delay: -1s;
+  --s:-1;
+}
+@keyframes l10-1 {
+  0%,100%{transform:scaleX(var(--s,1)) rotate(0)}
+  25%,75%{transform:scaleX(var(--s,1)) rotate(180deg)}
+}
+@keyframes l10-0 {
+  0%,49.9%{transform:scaleX( 1)}
+  50%,100%{transform:scaleX(-1)}
+}
+
 footer {
   font-size: 0.8rem; /* 小さめ */
   color: #777;       /* 薄めのグレー（任意） */
   margin-top: 40px;  /* 他の要素との余白（任意） */
   text-align: center;
 }
+
 
 
