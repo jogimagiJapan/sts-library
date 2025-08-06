@@ -1,10 +1,3 @@
-const BUTTON = document.getElementById('btnSearch');
-const LOADER = document.getElementById('loader');
-BUTTON.addEventListener('click', doSearch);
-document.getElementById('fname').addEventListener('keydown', e => {
-  if (e.key === 'Enter') doSearch();
-});
-
 function doSearch() {
   const fname = document.getElementById('fname').value.trim();
   const ok = /^[A-Za-z0-9_-]+$/.test(fname); // 英数字・_- チェック
@@ -14,7 +7,7 @@ function doSearch() {
     return;
   }
 
-  // 検索ボタンを非表示、ローダーを表示
+  // 検索ボタン非表示、ローダー表示
   BUTTON.style.display = 'none';
   LOADER.style.display = 'flex';
 
@@ -36,10 +29,11 @@ function doSearch() {
     })
     .catch(err => {
       alert('通信エラー:' + err);
+      // ❗失敗時のみボタンを再表示
+      BUTTON.style.display = 'inline-block';
     })
     .finally(() => {
-      // ローダーを非表示にしてボタンを再表示
+      // ローダーを非表示に
       LOADER.style.display = 'none';
-      BUTTON.style.display = 'inline-block';
     });
 }
