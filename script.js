@@ -1,13 +1,20 @@
+const BUTTON = document.getElementById('btnSearch');
+const LOADER = document.getElementById('loader'); // ← 追加
+
+BUTTON.addEventListener('click', doSearch);
+document.getElementById('fname').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doSearch();
+});
+
 function doSearch() {
   const fname = document.getElementById('fname').value.trim();
-  const ok = /^[A-Za-z0-9_-]+$/.test(fname); // 英数字・_- チェック
+  const ok = /^[A-Za-z0-9_-]+$/.test(fname);
 
   if (!ok || !fname) {
     alert('ファイル名は英数字、ハイフン、アンダースコアのみ、50文字以内です');
     return;
   }
 
-  // 検索ボタン非表示、ローダー表示
   BUTTON.style.display = 'none';
   LOADER.style.display = 'flex';
 
@@ -29,11 +36,9 @@ function doSearch() {
     })
     .catch(err => {
       alert('通信エラー:' + err);
-      // ❗失敗時のみボタンを再表示
       BUTTON.style.display = 'inline-block';
     })
     .finally(() => {
-      // ローダーを非表示に
       LOADER.style.display = 'none';
     });
 }
