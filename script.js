@@ -31,7 +31,7 @@
 */
 
 // ここにGASのデプロイURLを貼り付けてください
-const API_URL = 'YOUR_GAS_DEPLOYMENT_URL_HERE';
+const API_URL = 'https://script.google.com/macros/s/AKfycbxuJtznscgxM1MCekbcJCbqoCyM6jHmQ03pUWt2HtBxr4ZlealJxVUkT6X74QIsaUlcWQ/exec';
 
 const BUTTON = document.getElementById('btnSearch');
 const LOADER = document.getElementById('loader');
@@ -116,3 +116,4 @@ function renderResult(data) {
     `;
     RESULT.appendChild(card);
 }
+
