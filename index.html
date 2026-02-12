@@ -1,46 +1,158 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>STS Library</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Waves Visual Logic</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>ST Sound Library</h1>
 
-    <!-- ✅ アニメーションをタイトルと説明文の間に移動 -->
-    <div class="volume-bars">
-      <div class="bar bar-1"></div>
-      <div class="bar bar-2"></div>
-      <div class="bar bar-3"></div>
-      <div class="bar bar-4"></div>
-      <div class="bar bar-5"></div>
-      <div class="bar bar-6"></div>
-      <div class="bar bar-7"></div>
-      <div class="bar bar-8"></div>
-      <div class="bar bar-9"></div>
-      <div class="bar bar-10"></div>
-    </div>
+<div class="wrapper">
+    <header>
+        <span class="title-en">Visualizing Acoustic Waves</span>
+        <h1>音の波形の可視化</h1>
+        <p class="system-desc">
+            SEW THE SOUNDでは、音を単なる音量の振れ幅としてではなく、<br class="br-pc">
+            「時系列の振動」「周波数の密度」「物理的な衝撃」という3つの多角的なパラメーターへ分解・再構成し、<br class="br-pc">
+            これら3つの波形を3色の糸で重ね合わせることで、圧倒的な密度とテクスチャを持つ刺繍へと仕上げます。
+        </p>
 
-    <p>あなたの音を探してください</p>
-  </header>
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="input-group">
+                <input type="text" id="fname" placeholder="ファイル名を入力 (例: audio-001)" />
+                <button id="btnSearch">検索</button>
+                <div id="loader" class="loader" style="display: none;"></div>
+            </div>
+            <div id="result"></div>
+        </div>
+    </header>
 
-<main>
-<div class="input-group">
-  <input type="text" id="fname" placeholder="  20250714_164431_name" maxlength="50" required>
-  <button id="btnSearch">検索</button>
-  <div id="loader" class="loader" style="display: none;"></div>
+    <main class="main-grid">
+        <section class="card c1">
+            <span class="card-num">01</span>
+            <h2>Linspace Sampling</h2>
+            <div class="inner-content">
+                <div class="description-area">
+                    <h3>技術的背景</h3>
+                    <p>デジタル音声は通常、1秒間に44,100回という膨大な密度の点データで構成されています。Linspaceは、この中から描画解像度に合わせて一定の歩幅（Step）で値を抽出する手法です。フィルタリングを介さない「生の波形」の断面を抽出します。</p>
+                </div>
+                <div class="application-area">
+                    <h3>特性とアートへの応用</h3>
+                    <p>その瞬間における「正負の振幅」をダイレクトに示し、計算負荷が低くリアルタイム性に優れます。全体の「地」として機能し、滑らかな曲線や規則的なドット列を形成する基礎となります。</p>
+                    <span class="point-tag">音声波形の「時間的な連続性」を表現</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="card c2">
+            <span class="card-num">02</span>
+            <h2>Spectral Energy</h2>
+            <div class="inner-content">
+                <div class="description-area">
+                    <h3>技術的背景</h3>
+                    <p>FFT（高速フーリエ変換）を用いて、音を「時間」から「周波数」へと分解します。そこから全帯域、あるいは特定の帯域のエネルギー総量を算出します。単なる音量ではなく、音の「派手さ」や「音色の濃さ」を数値化します。</p>
+                </div>
+                <div class="application-area">
+                    <h3>特性とアートへの応用</h3>
+                    <p>高周波成分が多い（ノイジー）ほど複雑に変動します。波形の「テクスチャ（質感）」を司り、密度に応じて線の太さを変えたり、内部に緻密な模様を描き込むデータソースとなります。</p>
+                    <span class="point-tag">成分の「密度と複雑さ」を表現</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="card c3">
+            <span class="card-num">03</span>
+            <h2>Peak Picking</h2>
+            <div class="inner-content">
+                <div class="description-area">
+                    <h3>技術的背景</h3>
+                    <p>指定した時間窓内における「最大値」と「最小値」のみを記録する手法です。波形の上下の端点（エンベロープ）を繋ぐことで、小さな振動を無視し、音の「外形」を浮き彫りにします。</p>
+                </div>
+                <div class="application-area">
+                    <h3>特性とアートへの応用</h3>
+                    <p>人間の視覚が認識する「音量感」に最も近く、ドラムのキックなど瞬発的なエネルギーを逃さず描写します。作品に「エッジ」や「コントラスト」を与え、視覚的なインパクトを司ります。</p>
+                    <span class="point-tag">物理的な「音の勢い」を強調</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="matrix-section">
+        <h2 class="matrix-title">Comparison Matrix</h2>
+        <div class="matrix-wrapper">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>項目</th>
+                        <th class="col-c1">Linspace</th>
+                        <th class="col-c2">Spectral Energy</th>
+                        <th class="col-c3">Peak Picking</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>抽出対象</th>
+                        <td>瞬間の波形値</td>
+                        <td>周波数成分の総和</td>
+                        <td>区間内の最大振幅</td>
+                    </tr>
+                    <tr>
+                        <th>視覚的印象</th>
+                        <td>繊細・規則的</td>
+                        <td>複雑・濃密</td>
+                        <td>鋭利・力強い</td>
+                    </tr>
+                    <tr>
+                        <th>情報の種類</th>
+                        <td>生の振動 (Raw)</td>
+                        <td>音の色彩 (Texture)</td>
+                        <td>物理的な力 (Power)</td>
+                    </tr>
+                    <tr>
+                        <th>上下の意味</th>
+                        <td>空気の押し引き</td>
+                        <td>音の情報の密度</td>
+                        <td>衝撃の強さ</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="synthesis-bar">
+        <div class="logic-node" style="--accent-color: var(--accent-1);">
+            <div class="dot"></div>
+            <div class="node-text">
+                <b>Skeleton (骨格)</b>
+                <span>音が流れる「時間」の軸</span>
+            </div>
+        </div>
+        <div class="logic-node" style="--accent-color: var(--accent-2);">
+            <div class="dot"></div>
+            <div class="node-text">
+                <b>Spirit (精神)</b>
+                <span>音が内包する「深み」の表情</span>
+            </div>
+        </div>
+        <div class="logic-node" style="--accent-color: var(--accent-3);">
+            <div class="dot"></div>
+            <div class="node-text">
+                <b>Body (肉体)</b>
+                <span>音が主張する「存在感」の輪郭</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; Audio Waves Visual Logic. All rights reserved.</p>
+    </footer>
 </div>
 
-  <div id="result"></div>
-</main>
-
-<footer>
-  2025 &copy; jogi magi
-</footer>
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
-
