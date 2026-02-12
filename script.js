@@ -1,3 +1,38 @@
+/* 
+  【重要】Google Apps Script (GAS) コード
+  以下のコードをGASにデプロイし、ウェブアプリとして公開（全員・匿名アクセス可）してください。
+  発行されたURLを、下部の `API_URL` 定数に設定してください。
+
+  function doGet(e) {
+    const name = e.parameter.name;
+    // パラメータなしのガード
+    if (!name) {
+      return ContentService.createTextOutput(JSON.stringify({found: false})).setMimeType(ContentService.MimeType.JSON);
+    }
+
+    const fileName = name + '.wav'; 
+    const folderId = '1NFTXy-gqHPxHIPvDl01yVBl_XQx2qLmW'; // 指定フォルダID
+    const folder = DriveApp.getFolderById(folderId);
+    const files = folder.getFilesByName(fileName);
+
+    if (files.hasNext()) {
+      const file = files.next();
+      // ファイルIDだけ返して、クライアント側でリンク生成するほうが高速かつ安全
+      const result = {
+        found: true,
+        name: fileName,
+        id: file.getId()
+      };
+      return ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+    } else {
+      return ContentService.createTextOutput(JSON.stringify({found: false})).setMimeType(ContentService.MimeType.JSON);
+    }
+  }
+*/
+
+// ここにGASのデプロイURLを貼り付けてください
+const API_URL = 'YOUR_GAS_DEPLOYMENT_URL_HERE';
+
 const BUTTON = document.getElementById('btnSearch');
 const LOADER = document.getElementById('loader');
 const INPUT = document.getElementById('fname');
@@ -18,39 +53,66 @@ function doSearch() {
         return;
     }
 
-    // 検索ボタン非表示、ローダー表示
+    // UI状態更新
     BUTTON.style.display = 'none';
-    LOADER.style.display = 'flex';
-    RESULT.innerHTML = ''; // クリア
+    LOADER.style.display = 'inline-block'; // Ripple用にinline-block/block調整
+    RESULT.innerHTML = '';
 
-    // 擬似的な検索処理 (実際のエンドポイントがあればfetchに置き換える)
-    // ここではデモとして1.5秒後に結果を表示する
-    new Promise((resolve) => setTimeout(resolve, 1500))
-        .then(() => {
-            // 成功時の処理例
-            // 実際には fetch('/api/search?q=' + fname).then(...) 等
+    // API_URLが設定されていない場合のダミー動作 (デバッグ用)
+    if (API_URL === 'YOUR_GAS_DEPLOYMENT_URL_HERE') {
+        console.warn('API URL not set. Using mock delay.');
+        setTimeout(() => {
+            renderResult({
+                found: true,
+                name: fname + '.wav',
+                id: 'MOCK_ID_FOR_DEMO'
+            });
+            LOADER.style.display = 'none';
+            BUTTON.style.display = 'inline-block';
+        }, 1500);
+        return;
+    }
 
-            // 結果のダミー表示
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-        <div class="card-header"></div>
-        <div class="card-body">
-          <h3>${fname}</h3>
-          <p>Audio file found.</p>
-          <audio controls src="#"></audio>
-          <a href="#" class="download-button">Download</a>
-        </div>
-      `;
-            RESULT.appendChild(card);
+    // 実際の検索
+    fetch(`${API_URL}?name=${encodeURIComponent(fname)}`)
+        .then(res => res.json())
+        .then(data => {
+            renderResult(data);
         })
         .catch(err => {
-            alert('通信エラー:' + err);
+            alert('通信エラーが発生しました: ' + err);
         })
         .finally(() => {
-            // ローダーを非表示に
             LOADER.style.display = 'none';
-            // ボタンを再表示
             BUTTON.style.display = 'inline-block';
         });
+}
+
+function renderResult(data) {
+    if (!data.found && !data.id) { // idチェックも念のため
+        RESULT.innerHTML = '<p>ファイルが見つかりませんでした。</p>';
+        return;
+    }
+
+    // Google Driveの直接リンク形式
+    // audioタグ用 (previewではなくdownload URLを使うと再生できるケースが多いが、audioタグとの相性はブラウザによる)
+    // 一般的には https://drive.google.com/uc?export=download&id=FILE_ID が使われる
+    const srcUrl = `https://drive.google.com/uc?export=download&id=${data.id}`;
+
+    // UI構築
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="card-header"></div>
+      <div class="card-body">
+        <h3>${data.name}</h3>
+        <p>Preview Sound</p>
+        <audio controls src="${srcUrl}"></audio>
+        
+        <div class="btn-container">
+            <a href="${srcUrl}" class="download-button" download>DOWNLOAD .WAV</a>
+        </div>
+      </div>
+    `;
+    RESULT.appendChild(card);
 }

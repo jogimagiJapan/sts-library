@@ -4,31 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STS Library</title>
+    <title>SEW THE SOUND Library</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <header>
-        <h1>ST Sound Library</h1>
+        <h1>SEW THE SOUND Library</h1>
 
-        <!-- アニメーションをタイトルと説明文の間に移動 -->
-        <div class="volume-bars">
-            <div class="bar bar-1"></div>
-            <div class="bar bar-2"></div>
-            <div class="bar bar-3"></div>
-            <div class="bar bar-4"></div>
-            <div class="bar bar-5"></div>
-            <div class="bar bar-6"></div>
-            <div class="bar bar-7"></div>
-            <div class="bar bar-8"></div>
-            <div class="bar bar-9"></div>
-            <div class="bar bar-10"></div>
+        <!-- Sound Wave Animation -->
+        <div class="sound-wave-container">
+            <div class="wave-line"></div>
+            <div class="wave-line"></div>
+            <div class="wave-line"></div>
         </div>
 
         <p>あなたの音を探してください</p>
@@ -40,7 +33,11 @@
             <button id="btnSearch">検索</button>
         </div>
 
-        <div id="loader" class="loader" style="display: none;"></div>
+        <!-- Sound Ripple Loader -->
+        <div id="loader" class="sound-ripple" style="display: none;">
+            <div></div>
+            <div></div>
+        </div>
 
         <div id="result"></div>
     </main>

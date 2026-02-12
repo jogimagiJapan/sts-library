@@ -14,7 +14,8 @@
 
     /* Typography */
     --font-main: 'Noto Sans JP', sans-serif;
-    --font-accent: 'Playfair Display', serif;
+    --font-title: 'Montserrat', sans-serif;
+    /* Changed for Solid look */
 }
 
 body {
@@ -35,17 +36,70 @@ header {
 }
 
 h1 {
-    font-family: var(--font-accent);
-    font-style: italic;
-    font-weight: 600;
+    font-family: var(--font-title);
+    font-weight: 700;
+    /* Solid */
+    font-style: normal;
+    /* No Italic */
     font-size: 2.5rem;
     color: var(--text-main);
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 p {
     color: var(--text-sub);
     font-size: 0.95rem;
+}
+
+/* Sound Wave Animation (Abstract) */
+.sound-wave-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    gap: 15px;
+    /* Spacing between lines */
+    margin-bottom: 10px;
+}
+
+.wave-line {
+    width: 60px;
+    height: 60px;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    background: linear-gradient(45deg, var(--accent-blue), var(--accent-rose));
+    opacity: 0.6;
+    animation: morph 4s ease-in-out infinite both alternate;
+    mix-blend-mode: multiply;
+}
+
+.wave-line:nth-child(1) {
+    animation-duration: 3.5s;
+}
+
+.wave-line:nth-child(2) {
+    animation-duration: 4.2s;
+    background: linear-gradient(45deg, var(--accent-gold), var(--accent-blue));
+    animation-delay: -1s;
+}
+
+.wave-line:nth-child(3) {
+    animation-duration: 3.8s;
+    background: linear-gradient(45deg, var(--accent-rose), var(--accent-gold));
+    animation-delay: -2s;
+}
+
+@keyframes morph {
+    0% {
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        transform: scale(0.9) rotate(0deg);
+    }
+
+    100% {
+        border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+        transform: scale(1.1) rotate(180deg);
+    }
 }
 
 /* Input Group */
@@ -80,10 +134,8 @@ p {
 .input-group button {
     width: 100%;
     max-width: 150px;
-    /* Reduced specific width */
     padding: 12px 24px;
     background-color: var(--accent-blue);
-    /* Using theme color instead of snippet's green */
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -111,24 +163,58 @@ p {
     }
 }
 
-/* Loader */
-.loader {
-    border: 4px solid var(--border-color);
-    border-top: 4px solid var(--accent-gold);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
+/* Ripple Loader */
+.sound-ripple {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
     margin: 20px auto;
 }
 
-@keyframes spin {
+.sound-ripple div {
+    position: absolute;
+    border: 4px solid var(--accent-blue);
+    opacity: 1;
+    border-radius: 50%;
+    animation: sound-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.sound-ripple div:nth-child(2) {
+    animation-delay: -0.5s;
+}
+
+@keyframes sound-ripple {
     0% {
-        transform: rotate(0deg);
+        top: 36px;
+        left: 36px;
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+
+    4.9% {
+        top: 36px;
+        left: 36px;
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+
+    5% {
+        top: 36px;
+        left: 36px;
+        width: 0;
+        height: 0;
+        opacity: 1;
     }
 
     100% {
-        transform: rotate(360deg);
+        top: 0px;
+        left: 0px;
+        width: 72px;
+        height: 72px;
+        opacity: 0;
     }
 }
 
@@ -141,7 +227,7 @@ p {
     gap: 20px;
 }
 
-/* Card Component (Information Card) */
+/* Card Component */
 .card {
     background-color: var(--card-color);
     border: 1px solid var(--border-color);
@@ -162,8 +248,7 @@ p {
 
 .card-header {
     height: 8px;
-    background: var(--accent-rose);
-    /* Or other agent colors dynamically */
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-rose));
     width: 100%;
 }
 
@@ -177,131 +262,43 @@ p {
 
 .card h3 {
     margin: 0;
-    font-family: var(--font-main);
+    font-family: var(--font-title);
     font-size: 1.2rem;
     color: var(--text-main);
+    word-break: break-all;
 }
 
 audio {
     width: 100%;
     margin-top: 10px;
+    border-radius: 8px;
+    /* Slightly rounded */
 }
 
-/* Download Button (Styled per snippet but adapted to theme) */
+/* Buttons inside Card */
+.btn-container {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+}
+
 .download-button {
     background: linear-gradient(135deg, var(--accent-blue), #4a6d85);
     color: white;
     border: none;
-    padding: 14px 28px;
-    /* snippet value */
+    padding: 12px 24px;
     border-radius: 10px;
     text-decoration: none;
     display: inline-block;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 0.95rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
-    margin-top: auto;
-    /* Push to bottom if flex */
 }
 
 .download-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-}
-
-
-/* Volume Bars Animation */
-.volume-bars {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-    height: 40px;
-    pointer-events: none;
-}
-
-.volume-bars .bar {
-    width: 4px;
-    margin: 0 3px;
-    background-color: rgba(128, 128, 128, 0.4);
-    transform-origin: center;
-    animation-name: pulse;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
-    border-radius: 2px;
-}
-
-.bar-1 {
-    height: 14px;
-    animation-delay: 1.0s;
-    animation-duration: 1.0s;
-}
-
-.bar-2 {
-    height: 30px;
-    animation-delay: 0.4s;
-    animation-duration: 1.2s;
-}
-
-.bar-3 {
-    height: 16px;
-    animation-delay: 3.3s;
-    animation-duration: 1.5s;
-}
-
-.bar-4 {
-    height: 20px;
-    animation-delay: 0.2s;
-    animation-duration: 1.0s;
-}
-
-.bar-5 {
-    height: 35px;
-    animation-delay: 0.1s;
-    animation-duration: 1.6s;
-}
-
-.bar-6 {
-    height: 15px;
-    animation-delay: 4.1s;
-    animation-duration: 1.2s;
-}
-
-.bar-7 {
-    height: 8px;
-    animation-delay: 0.2s;
-    animation-duration: 1.4s;
-}
-
-.bar-8 {
-    height: 24px;
-    animation-delay: 0.3s;
-    animation-duration: 1.2s;
-}
-
-.bar-9 {
-    height: 18px;
-    animation-delay: 1.4s;
-    animation-duration: 1.0s;
-}
-
-.bar-10 {
-    height: 8px;
-    animation-delay: 0.5s;
-    animation-duration: 1.2s;
-}
-
-@keyframes pulse {
-
-    0%,
-    100% {
-        transform: scaleY(1);
-    }
-
-    50% {
-        transform: scaleY(1.8);
-    }
 }
 
 /* Footer */
@@ -319,18 +316,15 @@ footer {
     }
 
     h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 
-    /* Snippet requirement checks */
-    input,
-    button {
-        font-size: 1.1rem;
-        /* Slightly reduced for better fit, user asked for 1.2rem but 1.1 matches design better, sticking to 1.1rem global */
+    .wave-line {
+        width: 40px;
+        height: 40px;
     }
 
-    .download-button {
-        width: 100%;
-        box-sizing: border-box;
+    .sound-wave-container {
+        height: 40px;
     }
 }
