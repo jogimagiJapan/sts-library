@@ -106,8 +106,6 @@ function renderResult(data) {
       <div class="card-header"></div>
       <div class="card-body">
         <h3>${data.name}</h3>
-        <p>Preview Sound</p>
-        <audio controls src="${srcUrl}"></audio>
         
         <div class="btn-container">
             <a href="${srcUrl}" class="download-button" download>DOWNLOAD .WAV</a>
@@ -116,4 +114,3 @@ function renderResult(data) {
     `;
     RESULT.appendChild(card);
 }
-
