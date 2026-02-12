@@ -265,7 +265,8 @@ p {
     font-family: var(--font-title);
     font-size: 1.2rem;
     color: var(--text-main);
-    word-break: break-all;
+    overflow-wrap: break-word;
+    /* Prevent splitting extensions mid-word */
 }
 
 audio {
@@ -283,7 +284,8 @@ audio {
 }
 
 .download-button {
-    background: linear-gradient(135deg, var(--accent-blue), #4a6d85);
+    background: linear-gradient(135deg, var(--accent-rose), #9b4d66);
+    /* Rose accent for distinction */
     color: white;
     border: none;
     padding: 12px 24px;
