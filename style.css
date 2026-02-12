@@ -233,7 +233,8 @@ p {
     border: 1px solid var(--border-color);
     border-radius: 16px;
     width: 100%;
-    max-width: 400px;
+    max-width: 600px;
+    /* Increased from 400px to allow longer filenames on PC */
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
     transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
