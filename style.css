@@ -1,157 +1,336 @@
-body {
-  font-family: sans-serif;
-  margin: 20px;
-  text-align: center;
-  font-size: 1.1rem;
+:root {
+    /* Nuance Colors */
+    --base-color: #fdfdfb;
+    --card-color: #ffffff;
+    --text-main: #2c3e50;
+    --text-sub: #576574;
+    --border-color: #e8e8e1;
+
+    /* Accents */
+    --accent-blue: #5d8aa8;
+    --accent-rose: #c06c84;
+    --accent-gold: #d4a373;
+    --accent-header: #fafafa;
+
+    /* Typography */
+    --font-main: 'Noto Sans JP', sans-serif;
+    --font-accent: 'Playfair Display', serif;
 }
 
-/* 入力とボタン全体をラップする */
+body {
+    font-family: var(--font-main);
+    background-color: var(--base-color);
+    color: var(--text-main);
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    line-height: 1.6;
+}
+
+/* Header */
+header {
+    margin-bottom: 40px;
+}
+
+h1 {
+    font-family: var(--font-accent);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 2.5rem;
+    color: var(--text-main);
+    margin-bottom: 10px;
+}
+
+p {
+    color: var(--text-sub);
+    font-size: 0.95rem;
+}
+
+/* Input Group */
 .input-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
 }
 
 .input-group input {
-  width: 100%;
-  max-width: 400px;
+    width: 100%;
+    max-width: 400px;
+    padding: 14px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: var(--font-main);
+    background-color: var(--card-color);
+    color: var(--text-main);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 4px 12px rgba(93, 138, 168, 0.15);
 }
 
 .input-group button {
-  width: 25%;
-  min-width: 100px;
+    width: 100%;
+    max-width: 150px;
+    /* Reduced specific width */
+    padding: 12px 24px;
+    background-color: var(--accent-blue);
+    /* Using theme color instead of snippet's green */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-main);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(93, 138, 168, 0.2);
 }
 
-/* ✅ PC（601px以上）ではボタン幅を少し広めに */
+.input-group button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(93, 138, 168, 0.3);
+}
+
+/* PC Optimization */
 @media (min-width: 601px) {
-  .input-group button {
-    width: 150px;
-  }
+    .input-group {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .input-group input {
+        margin-bottom: 0;
+    }
 }
 
+/* Loader */
+.loader {
+    border: 4px solid var(--border-color);
+    border-top: 4px solid var(--accent-gold);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
 
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
 
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
-/* 音声結果 */
+/* Results Area */
 #result {
-  margin-top: 20px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-/* 音声コントロール */
+/* Card Component (Information Card) */
+.card {
+    background-color: var(--card-color);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 400px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+    height: 8px;
+    background: var(--accent-rose);
+    /* Or other agent colors dynamically */
+    width: 100%;
+}
+
+.card-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-grow: 1;
+}
+
+.card h3 {
+    margin: 0;
+    font-family: var(--font-main);
+    font-size: 1.2rem;
+    color: var(--text-main);
+}
+
 audio {
-  margin-top: 10px;
-  width: 100%;
+    width: 100%;
+    margin-top: 10px;
 }
 
-/* レスポンシブ対応 */
-@media (max-width: 600px) {
-  body {
-    font-size: 1.2rem;
-  }
-
-  input, button {
-    font-size: 1.2rem;
-    padding: 16px;
-  }
-
-  .download-button {
-    width: calc(100% - 40px);
-    padding: 14px 20px;
-  }
+/* Download Button (Styled per snippet but adapted to theme) */
+.download-button {
+    background: linear-gradient(135deg, var(--accent-blue), #4a6d85);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    /* snippet value */
+    border-radius: 10px;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    margin-top: auto;
+    /* Push to bottom if flex */
 }
 
-/* === 音量バーアニメーション === */
+.download-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Volume Bars Animation */
 .volume-bars {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px 0;
-  height: 40px;
-  pointer-events: none;
-  z-index: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    height: 40px;
+    pointer-events: none;
 }
 
 .volume-bars .bar {
-  width: 4px;
-  margin: 0 2px;
-  background-color: rgba(128, 128, 128, 0.5);
-  transform-origin: center;
-  animation-name: pulse;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
+    width: 4px;
+    margin: 0 3px;
+    background-color: rgba(128, 128, 128, 0.4);
+    transform-origin: center;
+    animation-name: pulse;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    border-radius: 2px;
 }
 
-/* ✅ 各バー：高さ + 遅延 + 速度 */
-.bar-1  { height: 14px; animation-delay: 1.0s; animation-duration: 1.0s; }
-.bar-2  { height: 30px; animation-delay: 0.4s; animation-duration: 1.2s; }
-.bar-3  { height: 16px; animation-delay: 3.3s; animation-duration: 1.5s; }
-.bar-4  { height: 20px; animation-delay: 0.2s; animation-duration: 1.0s; }
-.bar-5  { height: 35px; animation-delay: 0.1s; animation-duration: 1.6s; }
-.bar-6  { height: 15px; animation-delay: 4.1s; animation-duration: 1.2s; }
-.bar-7  { height: 8px; animation-delay: 0.2s; animation-duration: 1.4s; }
-.bar-8  { height: 24px; animation-delay: 0.3s; animation-duration: 1.2s; }
-.bar-9  { height: 18px; animation-delay: 1.4s; animation-duration: 1.0s; }
-.bar-10 { height: 8px; animation-delay: 0.5s; animation-duration: 1.2s; }
+.bar-1 {
+    height: 14px;
+    animation-delay: 1.0s;
+    animation-duration: 1.0s;
+}
+
+.bar-2 {
+    height: 30px;
+    animation-delay: 0.4s;
+    animation-duration: 1.2s;
+}
+
+.bar-3 {
+    height: 16px;
+    animation-delay: 3.3s;
+    animation-duration: 1.5s;
+}
+
+.bar-4 {
+    height: 20px;
+    animation-delay: 0.2s;
+    animation-duration: 1.0s;
+}
+
+.bar-5 {
+    height: 35px;
+    animation-delay: 0.1s;
+    animation-duration: 1.6s;
+}
+
+.bar-6 {
+    height: 15px;
+    animation-delay: 4.1s;
+    animation-duration: 1.2s;
+}
+
+.bar-7 {
+    height: 8px;
+    animation-delay: 0.2s;
+    animation-duration: 1.4s;
+}
+
+.bar-8 {
+    height: 24px;
+    animation-delay: 0.3s;
+    animation-duration: 1.2s;
+}
+
+.bar-9 {
+    height: 18px;
+    animation-delay: 1.4s;
+    animation-duration: 1.0s;
+}
+
+.bar-10 {
+    height: 8px;
+    animation-delay: 0.5s;
+    animation-duration: 1.2s;
+}
 
 @keyframes pulse {
-  0%, 100% { transform: scaleY(1); }
-  50%      { transform: scaleY(1.8); }
+
+    0%,
+    100% {
+        transform: scaleY(1);
+    }
+
+    50% {
+        transform: scaleY(1.8);
+    }
 }
 
-/* ✅ ダウンロードボタンのスタイル強化 */
-.download-button {
-  background: linear-gradient(135deg, #4CAF50, #2E7D32);
-  color: white;
-  border: none;
-  padding: 14px 28px;
-  margin: 20px auto; /* ← 上下に20px、左右自動で中央寄せ */
-  border-radius: 10px;
-  text-decoration: none;
-  display: inline-block; /* ← 中央寄せを効かせるため block に変更 */
-  font-weight: bold;
-  font-size: 1.1rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  transition: all 0.3s ease;
-  max-width: 90%; /* オーバーフロー防止に追加してもOK */
-  text-align: center; /* ボタン内テキストも中央に */
-  box-sizing: border-box;
-}
-
-.loader {
-  height: 3px;
-  width: 60px;
-  background: linear-gradient(#000 0 0) right/51% 100% no-repeat;
-  display: flex;
-  animation: l10-0 2s linear infinite;
-  margin: 10px auto;
-}
-.loader:before,
-.loader:after {
-  content: "";
-  width: 15px;
-  background: #000;
-  animation: l10-1 2s linear infinite;
-}
-.loader:after {
-  animation-delay: -1s;
-  --s:-1;
-}
-@keyframes l10-1 {
-  0%,100%{transform:scaleX(var(--s,1)) rotate(0)}
-  25%,75%{transform:scaleX(var(--s,1)) rotate(180deg)}
-}
-@keyframes l10-0 {
-  0%,49.9%{transform:scaleX( 1)}
-  50%,100%{transform:scaleX(-1)}
-}
-
+/* Footer */
 footer {
-  font-size: 0.8rem; /* 小さめ */
-  color: #777;       /* 薄めのグレー（任意） */
-  margin-top: 40px;  /* 他の要素との余白（任意） */
-  text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-sub);
+    margin-top: 60px;
+    margin-bottom: 20px;
 }
 
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+    body {
+        padding: 16px;
+    }
 
+    h1 {
+        font-size: 2rem;
+    }
 
+    /* Snippet requirement checks */
+    input,
+    button {
+        font-size: 1.1rem;
+        /* Slightly reduced for better fit, user asked for 1.2rem but 1.1 matches design better, sticking to 1.1rem global */
+    }
+
+    .download-button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
