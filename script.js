@@ -114,3 +114,18 @@ function renderResult(data) {
     `;
     RESULT.appendChild(card);
 }
+// --- URLパラメータからの自動入力機能を追加 ---
+window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const fileParam = params.get('file'); // generate.tsxで指定した ?file= の値を取得
+
+    if (fileParam) {
+        // 入力欄にファイル名をセット
+        INPUT.value = decodeURIComponent(fileParam);
+        
+        // ユーザーの手間を省くため、そのまま検索を実行
+        setTimeout(() => {
+            doSearch();
+        }, 500); // UIの準備を待つための微小なディレイ
+    }
+});
