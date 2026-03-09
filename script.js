@@ -40,92 +40,77 @@ const RESULT = document.getElementById('result');
 
 BUTTON.addEventListener('click', doSearch);
 INPUT.addEventListener('keydown', e => {
-    if (e.key === 'Enter') doSearch();
+  if (e.key === 'Enter') doSearch();
 });
 
 function doSearch() {
-    const fname = INPUT.value.trim();
-    // 英数字・_- チェック
-    const ok = /^[A-Za-z0-9_-]+$/.test(fname);
+  const fname = INPUT.value.trim();
+  // 英数字・_- チェック
+  const ok = /^[A-Za-z0-9_-]+$/.test(fname);
 
-    if (!ok || !fname) {
-        alert('ファイル名は英数字、ハイフン、アンダースコアのみ、50文字以内です');
-        return;
-    }
+  if (!ok || !fname) {
+    alert('ファイル名は英数字、ハイフン、アンダースコアのみ、50文字以内です');
+    return;
+  }
 
-    // UI状態更新
-    BUTTON.style.display = 'none';
-    LOADER.style.display = 'inline-block'; // Ripple用にinline-block/block調整
-    RESULT.innerHTML = '';
+  // UI状態更新
+  BUTTON.style.display = 'none';
+  LOADER.style.display = 'inline-block'; // Ripple用にinline-block/block調整
+  RESULT.innerHTML = '';
 
-    // API_URLが設定されていない場合のダミー動作 (デバッグ用)
-    if (API_URL === 'YOUR_GAS_DEPLOYMENT_URL_HERE') {
-        console.warn('API URL not set. Using mock delay.');
-        setTimeout(() => {
-            renderResult({
-                found: true,
-                name: fname + '.wav',
-                id: 'MOCK_ID_FOR_DEMO'
-            });
-            LOADER.style.display = 'none';
-            BUTTON.style.display = 'inline-block';
-        }, 1500);
-        return;
-    }
+  // API_URLが設定されていない場合のダミー動作 (デバッグ用)
+  if (API_URL === 'YOUR_GAS_DEPLOYMENT_URL_HERE') {
+    console.warn('API URL not set. Using mock delay.');
+    setTimeout(() => {
+      renderResult({
+        found: true,
+        name: fname + '.wav',
+        id: 'MOCK_ID_FOR_DEMO'
+      });
+      LOADER.style.display = 'none';
+      BUTTON.style.display = 'inline-block';
+    }, 1500);
+    return;
+  }
 
-    // 実際の検索
-    fetch(`${API_URL}?name=${encodeURIComponent(fname)}`)
-        .then(res => res.json())
-        .then(data => {
-            renderResult(data);
-        })
-        .catch(err => {
-            alert('通信エラーが発生しました: ' + err);
-        })
-        .finally(() => {
-            LOADER.style.display = 'none';
-            BUTTON.style.display = 'inline-block';
-        });
+  // 実際の検索
+  fetch(`${API_URL}?name=${encodeURIComponent(fname)}`)
+    .then(res => res.json())
+    .then(data => {
+      renderResult(data);
+    })
+    .catch(err => {
+      alert('通信エラーが発生しました: ' + err);
+    })
+    .finally(() => {
+      LOADER.style.display = 'none';
+      BUTTON.style.display = 'inline-block';
+    });
 }
 
 function renderResult(data) {
-    if (!data.found && !data.id) { // idチェックも念のため
-        RESULT.innerHTML = '<p>ファイルが見つかりませんでした。</p>';
-        return;
-    }
+  if (!data.found && !data.id) { // idチェックも念のため
+    RESULT.innerHTML = '<p>ファイルが見つかりませんでした。</p>';
+    return;
+  }
 
-    // Google Driveの直接リンク形式
-    // audioタグ用 (previewではなくdownload URLを使うと再生できるケースが多いが、audioタグとの相性はブラウザによる)
-    // 一般的には https://drive.google.com/uc?export=download&id=FILE_ID が使われる
-    const srcUrl = `https://drive.google.com/uc?export=download&id=${data.id}`;
+  // Google Driveの直接リンク形式
+  // audioタグ用 (previewではなくdownload URLを使うと再生できるケースが多いが、audioタグとの相性はブラウザによる)
+  // 一般的には https://drive.google.com/uc?export=download&id=FILE_ID が使われる
+  const srcUrl = `https://drive.google.com/uc?export=download&id=${data.id}`;
 
-    // UI構築
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
+  // UI構築
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
       <div class="card-header"></div>
       <div class="card-body">
-        <h3>${data.name}</h3>
+        <h3>あなたの声が見つかりました</h3>
         
         <div class="btn-container">
-            <a href="${srcUrl}" class="download-button" download>DOWNLOAD .WAV</a>
+            <a href="${srcUrl}" class="download-button" download>ダウンロード</a>
         </div>
       </div>
     `;
-    RESULT.appendChild(card);
+  RESULT.appendChild(card);
 }
-// --- URLパラメータからの自動入力機能を追加 ---
-window.addEventListener('DOMContentLoaded', () => {
-    const params = new URLSearchParams(window.location.search);
-    const fileParam = params.get('file'); // generate.tsxで指定した ?file= の値を取得
-
-    if (fileParam) {
-        // 入力欄にファイル名をセット
-        INPUT.value = decodeURIComponent(fileParam);
-        
-        // ユーザーの手間を省くため、そのまま検索を実行
-        setTimeout(() => {
-            doSearch();
-        }, 500); // UIの準備を待つための微小なディレイ
-    }
-});

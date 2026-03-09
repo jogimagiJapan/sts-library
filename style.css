@@ -304,6 +304,32 @@ audio {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
+.external-link-container {
+    width: 100%;
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
+}
+
+.about-embroidery-button {
+    background: linear-gradient(45deg, var(--accent-blue), var(--accent-rose));
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 10px;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.about-embroidery-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
 /* Footer */
 footer {
     font-size: 0.8rem;
