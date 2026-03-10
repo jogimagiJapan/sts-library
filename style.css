@@ -234,7 +234,6 @@ p {
     border-radius: 16px;
     width: 100%;
     max-width: 600px;
-    /* Increased from 400px to allow longer filenames on PC */
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
     transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
@@ -254,54 +253,61 @@ p {
 }
 
 .card-body {
-    padding: 24px;
+    padding: 32px 24px;
+    /* Increased top/bottom padding for audio prominence */
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 24px;
+    /* Increased gap */
     flex-grow: 1;
+    align-items: center;
+    /* Center everything inside */
 }
 
 .card h3 {
     margin: 0;
     font-family: var(--font-title);
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    /* Slightly larger */
     color: var(--text-main);
-    overflow-wrap: break-word;
-    /* Prevent splitting extensions mid-word */
 }
 
-audio {
+/* Audio Player */
+.audio-player {
     width: 100%;
-    margin-top: 10px;
-    border-radius: 8px;
-    /* Slightly rounded */
+    max-width: 400px;
+    /* Keep it constrained but prominent */
+    margin: 10px 0;
+    border-radius: 50px;
+    /* Fully rounded player depending on browser support */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    /* Subtle shadow for depth */
 }
 
 /* Buttons inside Card */
-.btn-container {
-    margin-top: auto;
-    display: flex;
-    justify-content: center;
+.btn-container-small {
+    margin-top: 8px;
 }
 
-.download-button {
-    background: linear-gradient(135deg, var(--accent-rose), #9b4d66);
-    /* Rose accent for distinction */
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 10px;
+.download-link {
+    color: var(--text-sub);
     text-decoration: none;
-    display: inline-block;
-    font-weight: bold;
-    font-size: 0.95rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
 }
 
-.download-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+.download-link:hover {
+    color: var(--accent-blue);
+    border-color: var(--accent-blue);
+    background-color: var(--base-color);
 }
 
 .external-link-container {

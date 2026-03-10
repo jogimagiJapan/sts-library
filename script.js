@@ -31,7 +31,7 @@
 */
 
 // ここにGASのデプロイURLを貼り付けてください
-const API_URL = 'https://script.google.com/macros/s/AKfycbxuJtznscgxM1MCekbcJCbqoCyM6jHmQ03pUWt2HtBxr4ZlealJxVUkT6X74QIsaUlcWQ/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwNDB-Cv_vgGR5J2ke35RgFn6-uR5rmHrQ2eTZAu3Vpbw6KP7uY423CUbctwQzQPDx2tQ/exec';
 
 const BUTTON = document.getElementById('btnSearch');
 const LOADER = document.getElementById('loader');
@@ -58,21 +58,6 @@ function doSearch() {
   LOADER.style.display = 'inline-block'; // Ripple用にinline-block/block調整
   RESULT.innerHTML = '';
 
-  // API_URLが設定されていない場合のダミー動作 (デバッグ用)
-  if (API_URL === 'YOUR_GAS_DEPLOYMENT_URL_HERE') {
-    console.warn('API URL not set. Using mock delay.');
-    setTimeout(() => {
-      renderResult({
-        found: true,
-        name: fname + '.wav',
-        id: 'MOCK_ID_FOR_DEMO'
-      });
-      LOADER.style.display = 'none';
-      BUTTON.style.display = 'inline-block';
-    }, 1500);
-    return;
-  }
-
   // 実際の検索
   fetch(`${API_URL}?name=${encodeURIComponent(fname)}`)
     .then(res => res.json())
@@ -95,20 +80,24 @@ function renderResult(data) {
   }
 
   // Google Driveの直接リンク形式
-  // audioタグ用 (previewではなくdownload URLを使うと再生できるケースが多いが、audioタグとの相性はブラウザによる)
-  // 一般的には https://drive.google.com/uc?export=download&id=FILE_ID が使われる
-  const srcUrl = `https://drive.google.com/uc?export=download&id=${data.id}`;
+  // 再生用: iframe埋め込みプレイヤーを使用（Google Driveの直リンク仕様変更による再生エラーを回避）
+  const playUrl = `https://drive.google.com/file/d/${data.id}/preview`;
+  // ダウンロード用: export=download
+  const downloadUrl = `https://drive.google.com/uc?export=download&id=${data.id}`;
 
   // UI構築
   const card = document.createElement('div');
   card.className = 'card';
   card.innerHTML = `
       <div class="card-header"></div>
-      <div class="card-body">
-        <h3>あなたの声が見つかりました</h3>
+      <div class="card-body result-body">
+        <h3>あなたの音が見つかりました</h3>
         
-        <div class="btn-container">
-            <a href="${srcUrl}" class="download-button" download>ダウンロード</a>
+        <!-- 再生プレイヤーを大きく配置 -->
+        <iframe src="${playUrl}" width="100%" height="80" style="border: none; border-radius: 12px; max-width: 400px; margin: 10px 0; box-shadow: 0 4px 12px rgba(0,0,0,0.05);" allow="autoplay"></iframe>
+
+        <div class="btn-container-small">
+            <a href="${downloadUrl}" class="download-link" target="_blank" rel="noopener noreferrer">↓ ダウンロード</a>
         </div>
       </div>
     `;
