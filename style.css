@@ -28,6 +28,8 @@ body {
     font-size: 1.1rem;
     letter-spacing: 0.1em;
     line-height: 1.6;
+    overflow-x: hidden;
+    /* Prevent horizontal scrolling on mobile */
 }
 
 /* Header */
@@ -315,6 +317,57 @@ p {
     margin-top: 32px;
     display: flex;
     justify-content: center;
+    position: relative;
+    /* For animation positioning */
+}
+
+/* 強調された非線形の波紋アニメーション（大小2重） */
+.external-link-container::before,
+.external-link-container::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 164px;
+    height: 50px;
+    border-radius: 25px;
+    z-index: -1;
+    opacity: 0;
+    /* Ease-outで素早く広がりゆっくり消える、そして休止時間を挟む設定 */
+    animation: button-ripple 4s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+}
+
+.external-link-container::before {
+    background-color: var(--accent-rose);
+}
+
+.external-link-container::after {
+    background-color: var(--accent-gold);
+    /* 2つ目の波紋は色を変える */
+    animation-delay: 0.6s;
+    /* 少し遅れて発生 */
+}
+
+@keyframes button-ripple {
+
+    0%,
+    15% {
+        transform: translate(-50%, -50%) scale(0.9, 0.9);
+        opacity: 0;
+    }
+
+    16% {
+        transform: translate(-50%, -50%) scale(1, 1);
+        opacity: 0.6;
+    }
+
+    60%,
+    100% {
+        /* より大きく広がる */
+        transform: translate(-50%, -50%) scale(1.6, 2.2);
+        opacity: 0;
+    }
 }
 
 .about-embroidery-button {
@@ -361,5 +414,12 @@ footer {
 
     .sound-wave-container {
         height: 40px;
+    }
+
+    .card h3 {
+        font-size: 1.15rem;
+        /* 小さくして1行に収める */
+        letter-spacing: 0.05em;
+        /* 文字間隔も少し詰める */
     }
 }

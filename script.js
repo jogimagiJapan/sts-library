@@ -97,9 +97,14 @@ function renderResult(data) {
         <iframe src="${playUrl}" width="100%" height="80" style="border: none; border-radius: 12px; max-width: 400px; margin: 10px 0; box-shadow: 0 4px 12px rgba(0,0,0,0.05);" allow="autoplay"></iframe>
 
         <div class="btn-container-small">
-            <a href="${downloadUrl}" class="download-link" target="_blank" rel="noopener noreferrer">↓ ダウンロード</a>
+            <a href="${downloadUrl}" class="download-link" target="_blank" rel="noopener noreferrer">ダウンロード</a>
         </div>
       </div>
     `;
   RESULT.appendChild(card);
+
+  // 再生プレイヤー（カード）が表示されたらそこへ自動スクロール
+  setTimeout(() => {
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 100);
 }
