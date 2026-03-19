@@ -31,7 +31,7 @@
 */
 
 // ここにGASのデプロイURLを貼り付けてください
-const API_URL = 'https://script.google.com/macros/s/AKfycbwNDB-Cv_vgGR5J2ke35RgFn6-uR5rmHrQ2eTZAu3Vpbw6KP7uY423CUbctwQzQPDx2tQ/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbyKKyDY6CzCGNoJNm4_-0fjC2OiOAnkhBLX3xCS4A3v0V10wm8VsJ1F56nBc8-3ygRv/exec';
 
 const BUTTON = document.getElementById('btnSearch');
 const LOADER = document.getElementById('loader');
@@ -42,6 +42,15 @@ BUTTON.addEventListener('click', doSearch);
 INPUT.addEventListener('keydown', e => {
   if (e.key === 'Enter') doSearch();
 });
+
+// URLパラメータから 'file' を取得して自動入力
+const urlParams = new URLSearchParams(window.location.search);
+const fileParam = urlParams.get('file');
+if (fileParam) {
+  INPUT.value = fileParam;
+  // 自動的に検索も実行（UX向上のため）
+  doSearch();
+}
 
 function doSearch() {
   const fname = INPUT.value.trim();
