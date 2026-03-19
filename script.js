@@ -31,7 +31,7 @@
 */
 
 // ここにGASのデプロイURLを貼り付けてください
-const API_URL = 'https://script.google.com/macros/s/AKfycbyKKyDY6CzCGNoJNm4_-0fjC2OiOAnkhBLX3xCS4A3v0V10wm8VsJ1F56nBc8-3ygRv/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwwqKocq-PCZLdZtjtsvtcfv6dc82ijrKdqiVCFKPZq8TBnKPhGuKloPO4TAUEHiA-F/exec';
 
 const BUTTON = document.getElementById('btnSearch');
 const LOADER = document.getElementById('loader');
