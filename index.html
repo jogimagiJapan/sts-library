@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
         rel="stylesheet">
     <!-- OGP Tags for LINE/SNS -->
     <meta property="og:title" content="SEW THE SOUND Library">
@@ -16,6 +16,8 @@
     <meta property="og:image" content="og-image.png">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://sts-library.jogimagi.com/">
+    <meta name="description" content="あなたの音を探してください。SEW THE SOUND Libraryは、あなたのための音声ライブラリです。">
+    <meta name="theme-color" content="#f8fafb">
 
     <!-- Favicon and Apple Touch Icon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -26,43 +28,50 @@
 </head>
 
 <body>
-    <header>
-        <h1>SEW THE SOUND Library</h1>
+    <div class="page">
+        <header class="hero">
+            <h1>SEW THE SOUND <span>Library</span></h1>
 
-        <!-- Sound Wave Animation -->
-        <div class="sound-wave-container">
-            <div class="wave-line"></div>
-            <div class="wave-line"></div>
-            <div class="wave-line"></div>
-        </div>
+            <div class="sound-wave-container" aria-hidden="true">
+                <div class="wave-line"></div>
+                <div class="wave-line"></div>
+                <div class="wave-line"></div>
+            </div>
 
-        <p>あなたの音を探してください</p>
-    </header>
+            <p class="lead" id="lead-text">あなたの音を探してください</p>
+        </header>
 
-    <main>
-        <div class="input-group">
-            <input type="text" id="fname" placeholder="例: 20250714_164431_name" maxlength="50"
-                autocomplete="off" spellcheck="false" enterkeyhint="search" required>
-            <button id="btnSearch">検索</button>
-        </div>
+        <main>
+            <form class="search-panel" id="searchForm" action="#" method="get">
+                <label class="search-label" for="fname">音声ID</label>
+                <div class="input-group">
+                    <input type="text" id="fname" name="file"
+                        placeholder="例: 20250714_164431_name"
+                        maxlength="50" autocomplete="off" spellcheck="false"
+                        enterkeyhint="search" inputmode="text" aria-describedby="search-hint">
+                    <button type="submit" id="btnSearch">検索</button>
+                </div>
+                <p class="search-hint" id="search-hint">会場のQRを読み取ると、自動で検索されます</p>
+            </form>
 
-        <!-- Sound Ripple Loader -->
-        <div id="loader" class="sound-ripple" style="display: none;">
-            <div></div>
-            <div></div>
-        </div>
+            <div id="loader" class="sound-ripple" hidden>
+                <div></div>
+                <div></div>
+            </div>
 
-        <div id="result"></div>
+            <div id="status" class="status-region" role="status" aria-live="polite"></div>
+            <div id="result"></div>
 
-        <div class="external-link-container">
-            <a href="https://sts-process-visualization.jogimagi.com/" class="about-embroidery-button" target="_blank"
-                rel="noopener noreferrer">音の刺繍とは？</a>
-        </div>
-    </main>
+            <nav class="secondary-nav" aria-label="関連リンク">
+                <a href="https://sts-process-visualization.jogimagi.com/" class="about-link"
+                    target="_blank" rel="noopener noreferrer">音の刺繍とは？</a>
+            </nav>
+        </main>
 
-    <footer>
-        2026 &copy; jogi magi
-    </footer>
+        <footer>
+            2026 &copy; jogi magi
+        </footer>
+    </div>
     <script src="script.js"></script>
 </body>
 

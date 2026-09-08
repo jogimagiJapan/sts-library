@@ -1,29 +1,32 @@
-// GAS は注文サイトと共用（order/code.gs をウェブアプリとしてデプロイ）。
-// URL が変わったらこの定数を更新する。
+// GAS 本体: /gas/Code.gs
+// ウェブアプリとして再デプロイし、URL が変わったらこの定数を更新する。
 const API_URL = 'https://script.google.com/macros/s/AKfycbwwqKocq-PCZLdZtjtsvtcfv6dc82ijrKdqiVCFKPZq8TBnKPhGuKloPO4TAUEHiA-F/exec';
 
 const POLL_INTERVAL_MS = 2000;
 const POLL_MAX_MS = 20000;
 
+const FORM = document.getElementById('searchForm');
 const BUTTON = document.getElementById('btnSearch');
 const LOADER = document.getElementById('loader');
 const INPUT = document.getElementById('fname');
 const RESULT = document.getElementById('result');
+const STATUS = document.getElementById('status');
+const LEAD = document.getElementById('lead-text');
+
+const DEFAULT_LEAD = 'あなたの音を探してください';
 
 let searchToken = 0;
 let currentObjectUrl = null;
 
-BUTTON.addEventListener('click', function () {
+FORM.addEventListener('submit', function (e) {
+  e.preventDefault();
   doSearch({ poll: false });
-});
-
-INPUT.addEventListener('keydown', function (e) {
-  if (e.key === 'Enter') doSearch({ poll: false });
 });
 
 const fileParam = new URLSearchParams(window.location.search).get('file');
 if (fileParam) {
   INPUT.value = normalizeId(fileParam);
+  setLead('QRから音を探しています…', true);
   doSearch({ poll: true });
 }
 
@@ -41,10 +44,23 @@ function sleep(ms) {
   });
 }
 
+function setLead(text, searching) {
+  if (!LEAD) return;
+  LEAD.textContent = text;
+  LEAD.classList.toggle('is-searching', !!searching);
+}
+
 function setSearching(isSearching) {
   BUTTON.disabled = isSearching;
-  BUTTON.style.display = isSearching ? 'none' : 'inline-block';
-  LOADER.style.display = isSearching ? 'inline-block' : 'none';
+  BUTTON.hidden = isSearching;
+  LOADER.hidden = !isSearching;
+  document.body.classList.toggle('is-busy', isSearching);
+}
+
+function clearFeedback() {
+  STATUS.innerHTML = '';
+  RESULT.innerHTML = '';
+  document.body.classList.remove('has-result');
 }
 
 function revokeAudioUrl() {
@@ -71,15 +87,31 @@ async function fetchLibraryFile(id) {
   return res.json();
 }
 
-function showMessage(text) {
-  RESULT.innerHTML = '<p class="status-message">' + text + '</p>';
+function showMessage(text, tone) {
+  RESULT.innerHTML = '';
+  document.body.classList.remove('has-result');
+  if (tone === 'wait') {
+    document.body.classList.add('is-busy');
+  }
+  const cls = tone === 'error' ? ' is-error' : tone === 'wait' ? ' is-wait' : '';
+  STATUS.innerHTML = '<p class="status-message' + cls + '">' + text + '</p>';
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
 function renderPlayer(data, blob) {
   revokeAudioUrl();
   currentObjectUrl = URL.createObjectURL(blob);
   const safeName = String(data.name || 'sound.wav').replace(/[^\w.-]/g, '_');
+  const displayId = escapeHtml(normalizeId(data.name || INPUT.value));
 
+  STATUS.innerHTML = '';
   RESULT.innerHTML = '';
   const card = document.createElement('div');
   card.className = 'card';
@@ -87,16 +119,18 @@ function renderPlayer(data, blob) {
     '<div class="card-header"></div>' +
     '<div class="card-body result-body">' +
       '<h3>あなたの音が見つかりました</h3>' +
+      '<p class="result-id">' + displayId + '</p>' +
       '<audio class="audio-player" controls playsinline preload="auto" src="' + currentObjectUrl + '"></audio>' +
       '<div class="btn-container-small">' +
         '<a class="download-link" href="' + currentObjectUrl + '" download="' + safeName + '">ダウンロード</a>' +
       '</div>' +
     '</div>';
   RESULT.appendChild(card);
+  document.body.classList.add('has-result');
 
   setTimeout(function () {
     card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }, 100);
+  }, 120);
 }
 
 async function doSearch(options) {
@@ -105,14 +139,24 @@ async function doSearch(options) {
   INPUT.value = fname;
 
   if (!isValidId(fname)) {
-    showMessage('ファイル名は英数字、ハイフン、アンダースコアのみ、50文字以内です');
+    setLead(DEFAULT_LEAD, false);
+    showMessage(
+      fname
+        ? 'IDは英数字・ハイフン・アンダースコアのみ、50文字以内です'
+        : '音声IDを入力するか、会場のQRコードを読み取ってください',
+      'error'
+    );
+    INPUT.focus();
     return;
   }
 
   const token = ++searchToken;
   revokeAudioUrl();
   setSearching(true);
-  RESULT.innerHTML = '';
+  clearFeedback();
+  if (!poll) {
+    setLead('音を探しています…', true);
+  }
 
   const started = Date.now();
 
@@ -127,26 +171,31 @@ async function doSearch(options) {
           const mime = data.mimeType && String(data.mimeType).indexOf('audio/') === 0
             ? data.mimeType
             : 'audio/wav';
+          setLead('再生して、あなたの音を聴いてください', false);
           renderPlayer(data, base64ToBlob(data.audioBase64, mime));
           return;
         }
-        showMessage('音声データを取得できませんでした。');
+        setLead(DEFAULT_LEAD, false);
+        showMessage('音声データを取得できませんでした。もう一度お試しください。', 'error');
         return;
       }
 
       const elapsed = Date.now() - started;
       if (!poll || elapsed >= POLL_MAX_MS) {
-        showMessage('ファイルが見つかりませんでした。');
+        setLead(DEFAULT_LEAD, false);
+        showMessage('ファイルが見つかりませんでした。IDをもう一度ご確認ください。', 'error');
         return;
       }
 
-      showMessage('保存中…');
+      setLead('保存が完了するまで待っています…', true);
+      showMessage('保存中です。そのままお待ちください…', 'wait');
       await sleep(POLL_INTERVAL_MS);
     }
   } catch (err) {
     if (token !== searchToken) return;
     console.error(err);
-    showMessage('通信エラーが発生しました。');
+    setLead(DEFAULT_LEAD, false);
+    showMessage('通信エラーが発生しました。電波の良い場所でもう一度お試しください。', 'error');
   } finally {
     if (token === searchToken) {
       setSearching(false);
