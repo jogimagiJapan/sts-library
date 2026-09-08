@@ -153,6 +153,12 @@ p {
     box-shadow: 0 6px 14px rgba(93, 138, 168, 0.3);
 }
 
+.input-group button:disabled {
+    opacity: 0.6;
+    cursor: default;
+    transform: none;
+}
+
 /* PC Optimization */
 @media (min-width: 601px) {
     .input-group {
@@ -229,6 +235,13 @@ p {
     gap: 20px;
 }
 
+.status-message {
+    width: 100%;
+    color: var(--text-sub);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
 /* Card Component */
 .card {
     background-color: var(--card-color);
@@ -278,12 +291,10 @@ p {
 .audio-player {
     width: 100%;
     max-width: 400px;
-    /* Keep it constrained but prominent */
+    min-height: 54px;
     margin: 10px 0;
     border-radius: 50px;
-    /* Fully rounded player depending on browser support */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    /* Subtle shadow for depth */
 }
 
 /* Buttons inside Card */
